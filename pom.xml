@@ -221,7 +221,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/fxrobin/quarkus-h2</url>
+            <url>https://maven.pkg.github.com/fxrobin/api-impl-demo</url>
         </repository>
     </distributionManagement>
 
