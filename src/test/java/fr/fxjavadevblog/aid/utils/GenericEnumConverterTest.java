@@ -6,12 +6,14 @@ import javax.ws.rs.ext.ParamConverter;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import fr.fxjavadevblog.aid.utils.GenericEnumConverter;
+import fr.fxjavadevblog.aid.global.TestingGroups;
 
+@Tag(TestingGroups.UNIT_TESTING)
 class GenericEnumConverterTest
 {
     public enum DummyEnum
