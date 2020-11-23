@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unused" })
 @EqualsAndHashCode(of = "id")
 @ToString(of = { "id", "name" })
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
@@ -33,6 +33,7 @@ import lombok.ToString;
 @Table(name = "VIDEO_GAME")
 public class VideoGame implements Serializable
 {
+
     @Id
     @Getter
     @Column(length = 36)

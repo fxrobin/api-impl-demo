@@ -24,7 +24,7 @@ public class UUIDProducer
      */
     @Produces
     @InjectUUID
-    public String produceUUIDAsString()
+    public static String produceUUIDAsString()
     {
         return UUID.randomUUID().toString();
     }
