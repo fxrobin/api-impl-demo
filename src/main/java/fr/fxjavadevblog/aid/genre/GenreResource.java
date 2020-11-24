@@ -36,14 +36,12 @@ public class GenreResource {
 	private VideoGameRepository videoGameRepository;
 
 	@GET
-	@Operation(summary = "returns all genres of video games on Atari ST")
 	public Genre[] getAllGenres() {
 		return Genre.values();
 	}
 
 	@GET
-	@Operation(summary = "Get games within a genre", description = "Get all video games of the given genre")
-	@Path("/{genre}/video-games")
+	@Path("{genre}/video-games")
 	@Timed(name = "videogames-find-by-genre", absolute = true, description = "A measure of how long it takes to fetch all video games filtered by a given genre.", unit = MetricUnits.MILLISECONDS)
 	public List<VideoGame> findByGenre(@PathParam("genre") final Genre genre) {
 		log.debug("Calling {}.findByGenre : {}", this.getClass().getSimpleName(), genre);
