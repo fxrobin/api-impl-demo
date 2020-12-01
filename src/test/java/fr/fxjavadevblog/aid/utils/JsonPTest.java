@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.fxjavadevblog.aid.api.genre.Genre;
 import fr.fxjavadevblog.aid.api.videogame.VideoGame;
 import fr.fxjavadevblog.aid.api.videogame.VideoGameFactory;
-import fr.fxjavadevblog.aid.global.TestingGroups;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest

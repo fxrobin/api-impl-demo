@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import fr.fxjavadevblog.aid.api.videogame.VideoGame;
 import fr.fxjavadevblog.aid.api.videogame.VideoGameFactory;
-import fr.fxjavadevblog.aid.global.TestingGroups;
 import io.quarkus.test.junit.QuarkusTest;
 
 /**

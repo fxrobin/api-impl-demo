@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import fr.fxjavadevblog.aid.global.TestingGroups;
-
 /**
  * Dummy test.
  * 

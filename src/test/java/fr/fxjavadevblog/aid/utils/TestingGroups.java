@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.global;
+package fr.fxjavadevblog.aid.utils;
 
 
 /**

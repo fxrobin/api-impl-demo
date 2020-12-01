@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import fr.fxjavadevblog.aid.global.TestingGroups;
-
 @Tag(TestingGroups.UNIT_TESTING)
 class GenericEnumConverterTest
 {
