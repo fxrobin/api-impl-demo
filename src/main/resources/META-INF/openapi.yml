@@ -1,8 +1,12 @@
----
 openapi: 3.0.3
 info:
+<<<<<<< HEAD
   title: <overriden by annotation. see Application class>
   description: Give access (CRUD) to every video games for the ATARI ST.
+=======
+  title: Simple API over video games catalog of ATARI ST
+  description: Give read access to every video games for the ATARI ST.
+>>>>>>> branch 'main' of https://github.com/fxrobin/api-impl-demo
   contact:
     name: François-Xavier Robin
     url: https://www.fxjavadevblog.fr
@@ -10,9 +14,15 @@ info:
   license:
     name: Apache 2.0
     url: https://www.fxjavadevblog.fr
+<<<<<<< HEAD
   version: <overriden by annotation see Application class>
   x-data-atari: ST, STF, STFM, STE, MEGA ST, MEGA STE, FALCON
+=======
+  version: 1.0.0
+  x-data-atari: "ST, STF, STFM, STE, MEGA ST, MEGA STE, FALCON"
+>>>>>>> branch 'main' of https://github.com/fxrobin/api-impl-demo
   x-data-protection: NONE
+<<<<<<< HEAD
 
 tags:
 - name: Health
@@ -26,3 +36,13 @@ paths:
       responses:
         "200":
           description: OK
+=======
+paths:
+  /api/v1/genres:
+    get:
+      summary: returns all genres of video games on Atari ST
+  /api/v1/genres/{genre}/video-games:
+    get:
+      summary: Get games within a genre
+      description: 'Get all video games of the given genre'
+>>>>>>> branch 'main' of https://github.com/fxrobin/api-impl-demo
