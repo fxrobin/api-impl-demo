@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.videogame;
+package fr.fxjavadevblog.aid.api.videogame;
 
 
 import javax.enterprise.inject.spi.CDI;

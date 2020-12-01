@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.fxjavadevblog.aid.genre.Genre;
+import fr.fxjavadevblog.aid.api.genre.Genre;
+import fr.fxjavadevblog.aid.api.videogame.VideoGame;
+import fr.fxjavadevblog.aid.api.videogame.VideoGameFactory;
 import fr.fxjavadevblog.aid.global.TestingGroups;
-import fr.fxjavadevblog.aid.videogame.VideoGame;
-import fr.fxjavadevblog.aid.videogame.VideoGameFactory;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest

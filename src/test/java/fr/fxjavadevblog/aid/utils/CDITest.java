@@ -11,9 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import fr.fxjavadevblog.aid.utils.InjectUUID;
-import fr.fxjavadevblog.aid.videogame.VideoGame;
-import fr.fxjavadevblog.aid.videogame.VideoGameFactory;
+import fr.fxjavadevblog.aid.api.videogame.VideoGame;
+import fr.fxjavadevblog.aid.api.videogame.VideoGameFactory;
 import fr.fxjavadevblog.aid.global.TestingGroups;
 import io.quarkus.test.junit.QuarkusTest;
 

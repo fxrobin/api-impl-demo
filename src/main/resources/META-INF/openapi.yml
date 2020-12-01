@@ -1,8 +1,8 @@
 ---
 openapi: 3.0.3
 info:
-  title: Simple API over video games catalog of ATARI ST
-  description: Give read access to every video games for the ATARI ST
+  title: <overriden by annotation. see Application class>
+  description: Give access (CRUD) to every video games for the ATARI ST.
   contact:
     name: François-Xavier Robin
     url: https://www.fxjavadevblog.fr
@@ -10,6 +10,19 @@ info:
   license:
     name: Apache 2.0
     url: https://www.fxjavadevblog.fr
-  version: 1.0.0
+  version: <overriden by annotation see Application class>
   x-data-atari: ST, STF, STFM, STE, MEGA ST, MEGA STE, FALCON
   x-data-protection: NONE
+
+tags:
+- name: Health
+  description: get metadada from the undelaying applicaiton.
+
+paths:
+  /health:
+    get:
+      tags:
+      - Health
+      responses:
+        "200":
+          description: OK

@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.videogame;
+package fr.fxjavadevblog.aid.api.videogame;
 
 import javax.inject.Inject;
 import javax.transaction.HeuristicMixedException;
@@ -24,6 +24,7 @@ import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.utils.UUIDProducer;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
@@ -36,6 +37,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Path("/api/v1/video-games")
+@Tag(name="Videogames", description = "CRUD operations over videogames")
 @Slf4j
 @Produces({"application/json", "application/yaml"})
 public class VideoGameResource
@@ -100,10 +102,10 @@ public class VideoGameResource
     public Response update(VideoGame videoGame) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
     {   	
     	log.info("update video-game " + videoGame);
-    	VideoGame old = videoGameRepository.findById(videoGame.id);
-    	old.setName(videoGame.getName());
-    	old.setGenre(videoGame.getGenre());
-    	return Response.ok().entity(old).build();
+    	VideoGame vg = videoGameRepository.findById(videoGame.id);
+    	vg.setName(videoGame.getName());
+    	vg.setGenre(videoGame.getGenre());
+    	return Response.ok().entity(vg).build();
     }
     
     

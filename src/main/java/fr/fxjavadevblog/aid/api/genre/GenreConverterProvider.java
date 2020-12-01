@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.genre;
+package fr.fxjavadevblog.aid.api.genre;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;

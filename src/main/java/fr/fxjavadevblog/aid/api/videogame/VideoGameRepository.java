@@ -1,10 +1,9 @@
-package fr.fxjavadevblog.aid.videogame;
-
-import java.util.List;
+package fr.fxjavadevblog.aid.api.videogame;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import fr.fxjavadevblog.aid.genre.Genre;
+import fr.fxjavadevblog.aid.api.genre.Genre;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
 /**
@@ -28,8 +27,8 @@ public class VideoGameRepository implements PanacheRepositoryBase<VideoGame, Str
      * @return
      *    a list of video games
      */
-    public List<VideoGame> findByGenre(Genre genre)
+    public PanacheQuery<VideoGame> findByGenre(Genre genre)
     {
-    	return find("genre", genre).list();
+    	return find("genre", genre);
     }
 }

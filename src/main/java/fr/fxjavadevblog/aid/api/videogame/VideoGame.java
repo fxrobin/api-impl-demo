@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.videogame;
+package fr.fxjavadevblog.aid.api.videogame;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import fr.fxjavadevblog.aid.genre.Genre;
+import fr.fxjavadevblog.aid.api.genre.Genre;
 import fr.fxjavadevblog.aid.utils.InjectUUID;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;

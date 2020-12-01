@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.genre;
+package fr.fxjavadevblog.aid.api.genre;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
