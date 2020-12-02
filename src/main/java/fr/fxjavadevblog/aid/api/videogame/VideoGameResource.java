@@ -5,7 +5,6 @@ import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
-import javax.transaction.TransactionManager;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -26,6 +25,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import fr.fxjavadevblog.aid.utils.PagedResponse;
 import fr.fxjavadevblog.aid.utils.UUIDProducer;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import lombok.extern.slf4j.Slf4j;
@@ -45,33 +45,28 @@ public class VideoGameResource
     
     @Inject
     VideoGameRepository videoGameRepository;
-    
-    @Inject 
-    TransactionManager tm;
 
     @GET
     @Operation(summary = "Get games", 
                description = "Get all video games on Atari ST. Content negociation can produce application/json and application/yaml")
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
-    public Response findAll(
+    public Response findAll(  			
          @Parameter(description="Page to display starting from 0", required = true)
          @QueryParam(value = "page") 
          @Min(0) @Max(Integer.MAX_VALUE) 
-         int page, 
+         final int page, 
          
          @Parameter(description="Number of items to be displayed per page", required = true)
          @QueryParam(value = "size") 
          @Min(2) @Max(200)
-         int size)
+         final int size)
     {
-    	log.info("findAll video-games");
-    	PanacheQuery<VideoGame> query = videoGameRepository.findAll();
-  
-    	
-    	return Response.status(Response.Status.OK)
-    				   .entity(query.page(page, size).list())
-    				   .build();
+    	log.info("findAll video-games page:{} size:{}", page, size); 	
+    	PanacheQuery<VideoGame> query = videoGameRepository.findAll().page(page, size);  	
+    	return PagedResponse.of(query);
     }
+
+
     
     @Transactional
     @POST
@@ -79,7 +74,7 @@ public class VideoGameResource
     @Produces("application/json")
     public Response post(VideoGame videoGame) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
     {   
-    	log.info("post video-game " + videoGame);
+    	log.info("post video-game {}", videoGame);
     	videoGame.id = UUIDProducer.produceUUIDAsString();
     	videoGameRepository.persistAndFlush(videoGame);
     	return Response.ok().entity(videoGame).build();
@@ -90,7 +85,7 @@ public class VideoGameResource
     @Path("{id}")
     public Response delete(@PathParam("id") String id)
     {   	
-    	log.info("delete video-game " + id);
+    	log.info("delete video-game {}", id);
     	videoGameRepository.deleteById(id);
     	return Response.ok().build();
     }
@@ -101,7 +96,7 @@ public class VideoGameResource
     @Produces("application/json")
     public Response update(VideoGame videoGame) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
     {   	
-    	log.info("update video-game " + videoGame);
+    	log.info("update video-game {}", videoGame);
     	VideoGame vg = videoGameRepository.findById(videoGame.id);
     	vg.setName(videoGame.getName());
     	vg.setGenre(videoGame.getGenre());

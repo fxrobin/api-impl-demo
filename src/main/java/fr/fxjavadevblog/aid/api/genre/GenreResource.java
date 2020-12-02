@@ -18,6 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.videogame.VideoGame;
 import fr.fxjavadevblog.aid.api.videogame.VideoGameRepository;
+import fr.fxjavadevblog.aid.utils.PagedResponse;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import lombok.extern.slf4j.Slf4j;
 
@@ -67,14 +68,11 @@ public class GenreResource {
 	        @Min(2) 
 	        @Max(200) 
 			final int size
-	        ) {
-		log.debug("Calling {}.findByGenre : {}", this.getClass().getSimpleName(), genre);
-				
-		PanacheQuery<VideoGame> query = videoGameRepository.findByGenre(genre);
-  
-    	return Response.status(Response.Status.OK)
-    				   .entity(query.page(page, size).list())
-    				   .build();
+	        ) 
+	{
+		log.info("find video-games by genre:{} page:{} size:{}", genre, page, size); 		
+		PanacheQuery<VideoGame> query = videoGameRepository.findByGenre(genre).page(page, size);
+		return  PagedResponse.of(query);
 	}
 
 }
