@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 
-@Path("/api/v1/genres")
+@Path("/genres")
 @Produces("application/json")
 @Tag(name = "Genres", description = "get all videogame genres or get all videogames within a genre.")
 @Slf4j

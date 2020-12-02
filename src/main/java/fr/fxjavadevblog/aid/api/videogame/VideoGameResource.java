@@ -36,10 +36,14 @@ import lombok.extern.slf4j.Slf4j;
  * @author François-Xavier Robin
  *
  */
-@Path("/api/v1/video-games")
+
+// JAX-RS + OpenAPI annotations 
+
+@Path("/video-games")
 @Tag(name="Videogames", description = "CRUD operations over videogames")
-@Slf4j
 @Produces({"application/json", "application/yaml"})
+
+@Slf4j
 public class VideoGameResource
 {
     
@@ -65,9 +69,7 @@ public class VideoGameResource
     	PanacheQuery<VideoGame> query = videoGameRepository.findAll().page(page, size);  	
     	return PagedResponse.of(query);
     }
-
-
-    
+  
     @Transactional
     @POST
     @Consumes("application/json")
@@ -102,7 +104,5 @@ public class VideoGameResource
     	vg.setGenre(videoGame.getGenre());
     	return Response.ok().entity(vg).build();
     }
-    
-    
 
 }
