@@ -24,7 +24,7 @@ Then open a browser `http://localhost:8080/openapi-ui`
 Generating the uber-jar:
 
 ```
-$ /§mvnw package -Dquarkus.package.type=uber-jar
+$ ./mvnw package -Dquarkus.package.type=uber-jar
 ```
 
 then run it:
