@@ -1,7 +1,7 @@
 package fr.fxjavadevblog.aid.metadata;
 
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.Path;
+import javax.ws.rs.core.Application;
 
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
@@ -12,15 +12,15 @@ import org.eclipse.microprofile.openapi.annotations.info.Info;
 
 @OpenAPIDefinition (
 	info = @Info(
-			title = Application.APP_NAME, 
-			version = Application.APP_VERSION
+			title = ApplicationConfig.APP_NAME, 
+			version = ApplicationConfig.APP_VERSION
 			)
 		
 )
 
-@ApplicationPath("/api/" + Application.API_VERSION)
+@ApplicationPath("/api/" + ApplicationConfig.API_VERSION)
 
-public class Application extends javax.ws.rs.core.Application {
+public class ApplicationConfig extends Application {
 	
 	// this constants are used by OpenApi definition and by the response of /health
 

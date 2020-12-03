@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@SuppressWarnings({ "serial", "unused" })
+@SuppressWarnings({ "serial"})
 @EqualsAndHashCode(of = "id")
 @ToString(of = { "id", "name" })
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
