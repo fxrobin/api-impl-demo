@@ -8,7 +8,7 @@ import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
 
-import fr.fxjavadevblog.aid.metadata.Application;
+import fr.fxjavadevblog.aid.metadata.ApplicationConfig;
 
 /**
  * Simple Health Check.
@@ -28,9 +28,9 @@ public class ApplicationHealthCheck implements HealthCheck
     {
        return HealthCheckResponse.named("Application")
     		   .up()
-    		   .withData("app_name", Application.APP_NAME)
-    		   .withData("app_version", Application.APP_VERSION)
-    		   .withData("api_version", Application.API_VERSION)
+    		   .withData("app_name", ApplicationConfig.APP_NAME)
+    		   .withData("app_version", ApplicationConfig.APP_VERSION)
+    		   .withData("api_version", ApplicationConfig.API_VERSION)
     		   .withData("started_at", DateFormatUtils.ISO_8601_EXTENDED_DATETIME_FORMAT.format(chrono.getStartTime()))
     		   .withData("uptime", chrono.toString())
     		   .build();
