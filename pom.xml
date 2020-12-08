@@ -1,228 +1,237 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>fr.fxjavadevblog</groupId>
-    <artifactId>api-impl-demo</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
-    <name>API Implementation Demo</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.fxjavadevblog</groupId>
+	<artifactId>api-impl-demo</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
+	<name>API Implementation Demo</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
 
-        <quarkus-plugin.version>1.8.3.Final</quarkus-plugin.version>
-        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>1.8.3.Final</quarkus.platform.version>
+		<quarkus-plugin.version>1.8.3.Final</quarkus-plugin.version>
+		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+		<quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+		<quarkus.platform.version>1.8.3.Final</quarkus.platform.version>
 
-        <lombok.version>1.18.14</lombok.version>
-        <commons-lang.version>3.11</commons-lang.version>
+		<lombok.version>1.18.14</lombok.version>
+		<commons-lang.version>3.11</commons-lang.version>
 
-        <surefire-plugin.version>2.22.2</surefire-plugin.version>
-    </properties>
+		<surefire-plugin.version>2.22.2</surefire-plugin.version>
+	</properties>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.13.0</version>
-            </plugin>
-        </plugins>
-    </reporting>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.13.0</version>
+			</plugin>
+		</plugins>
+	</reporting>
 
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>${quarkus.platform.artifact-id}</artifactId>
-                <version>${quarkus.platform.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${quarkus.platform.group-id}</groupId>
+				<artifactId>${quarkus.platform.artifact-id}</artifactId>
+				<version>${quarkus.platform.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
+	<dependencies>
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm-panache</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm-rest-data-panache</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>5.3.1</version>
+		</dependency>
 
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jackson</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-orm-panache</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-yaml-provider</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-orm-rest-data-panache</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jackson</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-jackson</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-h2</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-yaml-provider</artifactId>
+		</dependency>
 
-        <!-- OpenAPI -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-openapi</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-resteasy-jackson</artifactId>
+		</dependency>
 
-        <!-- Health Check -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-health</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-jdbc-h2</artifactId>
+		</dependency>
 
-        <!-- Metrics -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-metrics</artifactId>
-        </dependency>
+		<!-- OpenAPI -->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-openapi</artifactId>
+		</dependency>
 
-        <!-- TEST DEPS -->
-        <!-- quarkus et JUnit 5 -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
+		<!-- Health Check -->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-health</artifactId>
+		</dependency>
 
-        <!-- Rest Assured -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <scope>test</scope>
-        </dependency>
+		<!-- Metrics -->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-metrics</artifactId>
+		</dependency>
 
-    </dependencies>
+		<!-- TEST DEPS -->
+		<!-- quarkus et JUnit 5 -->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-junit5</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-    <build>
-        <plugins>
+		<!-- Rest Assured -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-            <!-- compilation classique avec MAVEN -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-            </plugin>
+	</dependencies>
 
-            <!-- plugin Quarkus -->
-            <plugin>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+	<build>
+		<plugins>
 
-            <!-- tests unitaires -->
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire-plugin.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/IT_*.java</exclude>
-                    </excludes>
-                    <systemProperties>
-                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                    </systemProperties>
-                    <skipTests>${skip.surefire.tests}</skipTests>
-                </configuration>
-            </plugin>
+			<!-- compilation classique avec MAVEN -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+			</plugin>
 
-        </plugins>
-    </build>
+			<!-- plugin Quarkus -->
+			<plugin>
+				<groupId>io.quarkus</groupId>
+				<artifactId>quarkus-maven-plugin</artifactId>
+				<version>${quarkus-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-    <!-- profile pour builder l'application native avec GraalVM -->
-    <profiles>
-        <profile>
-            <id>native</id>
-            <activation>
-                <property>
-                    <name>native</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.quarkus</groupId>
-                        <artifactId>quarkus-maven-plugin</artifactId>
-                        <version>${quarkus-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <configuration>
-                                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${surefire-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <systemProperties>
-                                        <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                                    </systemProperties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+			<!-- tests unitaires -->
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${surefire-plugin.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>**/IT_*.java</exclude>
+					</excludes>
+					<systemProperties>
+						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+					</systemProperties>
+					<skipTests>${skip.surefire.tests}</skipTests>
+				</configuration>
+			</plugin>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/fxrobin/api-impl-demo</url>
-        </repository>
-    </distributionManagement>
+		</plugins>
+	</build>
+
+	<!-- profile pour builder l'application native avec GraalVM -->
+	<profiles>
+		<profile>
+			<id>native</id>
+			<activation>
+				<property>
+					<name>native</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>io.quarkus</groupId>
+						<artifactId>quarkus-maven-plugin</artifactId>
+						<version>${quarkus-plugin.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>native-image</goal>
+								</goals>
+								<configuration>
+									<enableHttpUrlHandler>true</enableHttpUrlHandler>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>${surefire-plugin.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+								<configuration>
+									<systemProperties>
+										<native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+									</systemProperties>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/fxrobin/api-impl-demo</url>
+		</repository>
+	</distributionManagement>
 
 </project>

@@ -1,7 +1,6 @@
 package fr.fxjavadevblog.aid.metadata;
 
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.Path;
 
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.info.Info;

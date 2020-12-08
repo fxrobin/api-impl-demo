@@ -1,5 +1,8 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
+import java.lang.reflect.InvocationTargetException;
+
+import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
@@ -24,9 +27,9 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.springframework.beans.BeanUtils;
 
 import fr.fxjavadevblog.aid.utils.PagedResponse;
-import fr.fxjavadevblog.aid.utils.UUIDProducer;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,14 +75,17 @@ public class VideoGameResource
   
     @Transactional
     @POST
+    @Operation(summary = "Create a new game", 
+    description = "Create a new game. Content negociation can produce application/json and application/yaml")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response post(VideoGame videoGame) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
+    public Response post(VideoGame source) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
     {   
-    	log.info("post video-game {}", videoGame);
-    	videoGame.id = UUIDProducer.produceUUIDAsString();
-    	videoGameRepository.persistAndFlush(videoGame);
-    	return Response.ok().entity(videoGame).build();
+    	log.info("post video-game {}", source);
+    	VideoGame dest = CDI.current().select(VideoGame.class).get();
+    	BeanUtils.copyProperties(source, dest);
+    	videoGameRepository.persistAndFlush(dest);
+    	return Response.ok().entity(dest).build();
     }
     
     @Transactional
@@ -96,13 +102,13 @@ public class VideoGameResource
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
-    public Response update(VideoGame videoGame) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException
+    @Path("{id}")
+    public Response update(@PathParam("id") String id,  VideoGame source) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
     {   	
-    	log.info("update video-game {}", videoGame);
-    	VideoGame vg = videoGameRepository.findById(videoGame.id);
-    	vg.setName(videoGame.getName());
-    	vg.setGenre(videoGame.getGenre());
-    	return Response.ok().entity(vg).build();
+    	log.info("update video-game {} : {}", id, source);
+    	VideoGame dest = videoGameRepository.findById(id);
+    	BeanUtils.copyProperties(source, dest);
+    	return Response.ok().entity(dest).build();
     }
 
 }

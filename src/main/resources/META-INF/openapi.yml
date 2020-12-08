@@ -15,14 +15,21 @@ info:
   x-data-protection: NONE
 
 tags:
-- name: Health
-  description: get metadada from the undelaying applicaiton.
+- name: Health and Metrics
+  description: get metadada from the underlaying application.
 
 paths:
   /health:
     get:
       tags:
-      - Health
+      - Health and Metrics
+      responses:
+        "200":
+          description: OK
+  /metrics:
+    get:
+      tags:
+      - Health and Metrics
       responses:
         "200":
           description: OK

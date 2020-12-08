@@ -23,7 +23,7 @@ import lombok.ToString;
 
 @SuppressWarnings({ "serial", "unused" })
 @EqualsAndHashCode(of = "id")
-@ToString(of = { "id", "name" })
+@ToString(of = { "id", "name", "genre" })
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 // CDI Annotation
 @Dependent
