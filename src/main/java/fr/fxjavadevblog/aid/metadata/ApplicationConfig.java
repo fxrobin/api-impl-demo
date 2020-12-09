@@ -18,7 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.info.Info;
 		
 )
 
-@ApplicationPath(ApplicationConfig.API_BASE_PATH + "/" + ApplicationConfig.APP_VERSION)
+@ApplicationPath(ApplicationConfig.API_BASE_PATH + "/" + ApplicationConfig.API_VERSION)
 
 public class ApplicationConfig extends Application {
 	

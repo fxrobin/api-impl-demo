@@ -11,9 +11,11 @@ import javax.transaction.SystemException;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HEAD;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -25,7 +27,11 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.headers.Header;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.springframework.beans.BeanUtils;
 
@@ -52,6 +58,21 @@ public class VideoGameResource
     
     @Inject
     VideoGameRepository videoGameRepository;
+    
+    /**
+     * returns META-DATA over the collections.
+     * 
+     * @return
+     */
+    @HEAD
+    @Operation(summary = "Get video games metadata",
+    		   description = "Get video games metadata, like the total count (Resource-Count) as HTTP RESPONSE HEADERS") 
+    @APIResponse(responseCode = "204", headers = {@Header(name = "Resource-Count", description = "total count of video games", schema = @Schema(type = SchemaType.INTEGER))})
+    public Response getMetaData()
+    {
+    	Response response = Response.noContent().header("Resource-Count", videoGameRepository.count()).build();
+    	return response;
+    }
 
     @GET
     @Operation(summary = "Get games", 
@@ -71,6 +92,14 @@ public class VideoGameResource
     	log.info("findAll video-games page:{} size:{}", page, size); 	
     	PanacheQuery<VideoGame> query = videoGameRepository.findAll().page(page, size);  	
     	return PagedResponse.of(query);
+    }
+    
+    @GET
+    @Path("{id}")
+    public Response get(@PathParam("id") @NotNull String id)
+    {
+    	log.info("get video-game {}", id);
+    	return Response.ok().entity(videoGameRepository.findById(id)).build();
     }
   
     @Transactional

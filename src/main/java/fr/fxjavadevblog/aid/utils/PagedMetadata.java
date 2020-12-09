@@ -13,6 +13,6 @@ public class PagedMetadata {
 	private int pageCount;
 	
 	@Getter
-	private long count;
+	private long resourceCount;
 
 }

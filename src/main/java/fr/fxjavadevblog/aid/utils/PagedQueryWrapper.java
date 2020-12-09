@@ -11,7 +11,7 @@ public class PagedQueryWrapper {
 		int page = query.page().index;
 		
 		PagedMetadata metadata = PagedMetadata.builder()
-    										  .count(query.count())
+    										  .resourceCount(query.count())
     										  .pageCount(query.pageCount())
     										  .currentPage(page)
     										  .build();

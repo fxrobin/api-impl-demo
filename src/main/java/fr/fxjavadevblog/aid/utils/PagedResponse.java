@@ -20,8 +20,11 @@ public class PagedResponse <T>
 	
 	public static Response of(PanacheQuery<?> query)
 	{
-	  return Response.status(Response.Status.OK)
-	   .entity(PagedQueryWrapper.wrap(query))
+		
+	  PagedResponse<?> pagedResponse =	PagedQueryWrapper.wrap(query);
+	  return Response.status(Response.Status.PARTIAL_CONTENT)
+	   .header("Resource-Count", pagedResponse.getMetadata().getResourceCount())
+	   .entity(pagedResponse)
 	   .build();
 	}
 
