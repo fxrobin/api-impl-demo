@@ -1,6 +1,9 @@
 package fr.fxjavadevblog.aid.utils;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +20,7 @@ import io.quarkus.test.junit.QuarkusTest;
 public class JsonPTest {
 	
 	@Test
+	@DisplayName("JSON serialization test")
 	public void createJson() throws JsonProcessingException
 	{
 		VideoGame vg = VideoGameFactory.newInstance();
@@ -26,7 +30,9 @@ public class JsonPTest {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(vg);
-		System.out.println(json);
+		assertNotNull(json);
+		assertTrue(json.contains("Xenon Reborn"), "JSON must contain Xenon Reborn");
+		assertTrue(json.contains("shoot-them-up"), "JSON must contain shoot-them-up");
 	}
 
 }
