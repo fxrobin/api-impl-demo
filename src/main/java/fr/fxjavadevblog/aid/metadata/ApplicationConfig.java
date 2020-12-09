@@ -18,7 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.info.Info;
 		
 )
 
-@ApplicationPath("/api/" + ApplicationConfig.API_VERSION)
+@ApplicationPath(ApplicationConfig.API_BASE_PATH + "/" + ApplicationConfig.APP_VERSION)
 
 public class ApplicationConfig extends Application {
 	
@@ -26,6 +26,7 @@ public class ApplicationConfig extends Application {
 
 	public static final String APP_NAME = "API for Atari ST Floppy Catalog";
 	public static final String APP_VERSION = "0.0.2";
+	public static final String API_BASE_PATH = "/api";
 	public static final String API_VERSION = "v1";
 
 }
