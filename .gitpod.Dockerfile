@@ -10,4 +10,4 @@ USER gitpod
 
 RUN curl -s "https://get.sdkman.io" | bash
 RUN chmod +x $HOME/.sdkman/bin/sdkman-init.sh
-RUN bash -c '$HOME/.sdkman/bin/sdkman-init.sh && sdk install java 20.3.0.r11-grl < /dev/null'
+RUN bash -c 'source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 20.3.0.r11-grl < /dev/null'
