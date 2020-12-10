@@ -164,9 +164,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${surefire-plugin.version}</version>
 				<configuration>
-					<excludes>
-						<exclude>**/IT_*.java</exclude>
-					</excludes>
 					<systemProperties>
 						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
 					</systemProperties>
@@ -199,24 +196,6 @@
 								</goals>
 								<configuration>
 									<enableHttpUrlHandler>true</enableHttpUrlHandler>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>${surefire-plugin.version}</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
-								</goals>
-								<configuration>
-									<systemProperties>
-										<native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-									</systemProperties>
 								</configuration>
 							</execution>
 						</executions>
