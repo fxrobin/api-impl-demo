@@ -8,6 +8,10 @@ FROM gitpod/workspace-full
 
 USER gitpod
 
+RUN sudo apt-get update
+RUN sudo apt-get install build-essential libz-dev zlib1g-dev
+
 RUN curl -s "https://get.sdkman.io" | bash
 RUN chmod +x $HOME/.sdkman/bin/sdkman-init.sh
 RUN bash -c 'source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 20.3.0.r11-grl < /dev/null'
+RUN gu install native-image
