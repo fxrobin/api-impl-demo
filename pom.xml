@@ -13,11 +13,10 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 
-		<quarkus-plugin.version>1.8.3.Final</quarkus-plugin.version>
+		<quarkus-plugin.version>1.10.3.Final</quarkus-plugin.version>
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-		<quarkus.platform.version>1.8.3.Final</quarkus.platform.version>
-
+		<quarkus.platform.version>1.10.3.Final</quarkus.platform.version>
 		<lombok.version>1.18.14</lombok.version>
 		<commons-lang.version>3.11</commons-lang.version>
 
@@ -66,6 +65,12 @@
 			<artifactId>spring-beans</artifactId>
 			<version>5.3.1</version>
 		</dependency>
+
+		<dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
 
 		<dependency>
 			<groupId>io.quarkus</groupId>

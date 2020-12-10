@@ -5,12 +5,12 @@ import java.util.Optional;
 
 import javax.ws.rs.ext.ParamConverter;
 
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 
 /**
  * Generic JAX-RS Enum converter based on the jackson JsonProperty annotation to
@@ -29,7 +29,7 @@ public class GenericEnumConverter<T extends Enum<T>> implements ParamConverter<T
      * bi-directionnal Map to store enum value as key and its string representation as value.
      * The string representation is retrieved through the JsonProperty annotation put on the enum constant. 
      */
-    private final BiMap<T, String> biMap =  HashBiMap.create();
+    private final BidiMap<T, String> biMap =  new DualHashBidiMap<>();
 
     /**
      * returns a Generic converter for an enum class in the context of JAX-RS ParamConverter.
@@ -73,7 +73,7 @@ public class GenericEnumConverter<T extends Enum<T>> implements ParamConverter<T
     @Override
     public T fromString(String value)
     {	
-        T returnedValue = biMap.inverse().get(value); 
+        T returnedValue = biMap.inverseBidiMap().get(value); 
         log.debug("Converting String \"{}\" to {}.{}", value, returnedValue.getClass(), returnedValue);
         return returnedValue;
     }
