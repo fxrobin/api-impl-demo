@@ -174,37 +174,6 @@
 		</plugins>
 	</build>
 
-	<!-- profile pour builder l'application native avec GraalVM -->
-	<profiles>
-		<profile>
-			<id>native</id>
-			<activation>
-				<property>
-					<name>native</name>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>io.quarkus</groupId>
-						<artifactId>quarkus-maven-plugin</artifactId>
-						<version>${quarkus-plugin.version}</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>native-image</goal>
-								</goals>
-								<configuration>
-									<enableHttpUrlHandler>true</enableHttpUrlHandler>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
 	<distributionManagement>
 		<repository>
 			<id>github</id>
