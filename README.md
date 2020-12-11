@@ -38,11 +38,11 @@ $ java -jar ./target/api-impl-demo-[version]-SNAPSHOT-runner.jar
 
 then browse to: 
 
-  - OpenApi definition : `http://localhost:8080/openapi`
-  - OpenApi UI : `http://localhost:8080/openapi-ui/`
-  - API : `http://localhost:8080/api/v1/video-games?page=0&size=100`
-  - Health: `http://localhost:8080/health`
-  - Metrics: `http://localhost:8080/metrics`
+- OpenApi definition : `http://localhost:8080/openapi`
+- OpenApi UI : `http://localhost:8080/openapi-ui/`
+- API : `http://localhost:8080/api/v1/video-games?page=0&size=100`
+- Health: `http://localhost:8080/health`
+- Metrics: `http://localhost:8080/metrics`
 
 ## Examples
 
