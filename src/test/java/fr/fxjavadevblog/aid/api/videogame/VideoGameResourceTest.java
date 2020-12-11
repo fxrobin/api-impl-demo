@@ -23,7 +23,7 @@ class VideoGameResourceTest extends VideoGameResource {
 	@Test
 	void testFindAll() {
 		Response response = this.findAll(0, 50);
-		responseBasicCheck(response);
+		assertCorrectResponse(response);
 	}
 
 	// BIONIC COMMANDO : 098d7670-ac32-49e7-9752-93fb1d16d495
@@ -31,7 +31,7 @@ class VideoGameResourceTest extends VideoGameResource {
 	void testGet() {
 		String id = "098d7670-ac32-49e7-9752-93fb1d16d495";
 		Response response = this.get(id);
-		responseBasicCheck(response);
+		assertCorrectResponse(response);
 		VideoGame vg = response.readEntity(VideoGame.class);
 		assertNotNull(vg);
 		assertEquals("BIONIC COMMANDO", vg.getName());
@@ -49,7 +49,7 @@ class VideoGameResourceTest extends VideoGameResource {
 		assertEquals(count, Long.parseLong(response.getHeaderString("Resource-Count")));
 	}
 
-	private void responseBasicCheck(Response response) {
+	private void assertCorrectResponse(Response response) {
 		assertNotNull(response);
 		assertStatusCodeCanBe(response, Response.Status.OK, Response.Status.PARTIAL_CONTENT);
 	}
