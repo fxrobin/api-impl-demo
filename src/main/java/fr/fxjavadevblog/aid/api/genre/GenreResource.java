@@ -33,14 +33,11 @@ import lombok.extern.slf4j.Slf4j;
 @Produces("application/json")
 @Tag(name = "Genres", description = "get all videogame genres or get all videogames within a genre.")
 @Slf4j
-public class GenreResource {
-
+public class GenreResource 
+{
 	@Inject
-	GenreResource(VideoGameRepository videoGameRepository) {
-		this.videoGameRepository = videoGameRepository;
-	}
-
 	private VideoGameRepository videoGameRepository;
+	
 
 	@GET
 	@Operation(summary = "returns all genres of video games on Atari ST")
@@ -67,8 +64,7 @@ public class GenreResource {
 	        @QueryParam(value = "size") 
 	        @Min(2) 
 	        @Max(200) 
-			final int size
-	        ) 
+			final int size) 
 	{
 		log.info("find video-games by genre:{} page:{} size:{}", genre, page, size); 		
 		PanacheQuery<VideoGame> query = videoGameRepository.findByGenre(genre).page(page, size);
