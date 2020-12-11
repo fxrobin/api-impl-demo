@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/886391c8c9464ba7828752cf2bbab230)](https://app.codacy.com/gh/fxrobin/api-impl-demo?utm_source=github.com&utm_medium=referral&utm_content=fxrobin/api-impl-demo&utm_campaign=Badge_Grade)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/fxrobin/api-impl-demo)
 ![Java CI with Maven](https://github.com/fxrobin/api-impl-demo/workflows/Java%20CI%20with%20Maven/badge.svg)
 ![Maven Package](https://github.com/fxrobin/api-impl-demo/workflows/Maven%20Package/badge.svg)
