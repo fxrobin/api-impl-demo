@@ -1,6 +1,7 @@
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/fxrobin/api-impl-demo)
 ![Java CI with Maven](https://github.com/fxrobin/api-impl-demo/workflows/Java%20CI%20with%20Maven/badge.svg)
 ![Maven Package](https://github.com/fxrobin/api-impl-demo/workflows/Maven%20Package/badge.svg)
+[![CodeFactor](https://www.codefactor.io/repository/github/fxrobin/api-impl-demo/badge)](https://www.codefactor.io/repository/github/fxrobin/api-impl-demo)
 
 
 # api-impl-demo
