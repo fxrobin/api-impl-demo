@@ -1,13 +1,7 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -67,7 +61,10 @@ public class VideoGameResource
     @HEAD
     @Operation(summary = "Get video games metadata",
     		   description = "Get video games metadata, like the total count (Resource-Count) as HTTP RESPONSE HEADERS") 
-    @APIResponse(responseCode = "204", headers = {@Header(name = "Resource-Count", description = "total count of video games", schema = @Schema(type = SchemaType.INTEGER))})
+    @APIResponse(responseCode = "204", 
+                      headers = {@Header(name = "Resource-Count", 
+                                         description = "total count of video games", 
+                                         schema = @Schema(type = SchemaType.INTEGER))})
     public Response getMetaData()
     {
     	Response response = Response.noContent().header("Resource-Count", videoGameRepository.count()).build();
@@ -108,7 +105,7 @@ public class VideoGameResource
     description = "Create a new game. Content negociation can produce application/json and application/yaml")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response post(VideoGame source) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
+    public Response post(VideoGame source) 
     {   
     	log.info("post video-game {}", source);
     	VideoGame dest = CDI.current().select(VideoGame.class).get();
@@ -132,7 +129,7 @@ public class VideoGameResource
     @Consumes("application/json")
     @Produces("application/json")
     @Path("{id}")
-    public Response update(@PathParam("id") String id,  VideoGame source) throws SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException, SystemException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
+    public Response update(@PathParam("id") String id,  VideoGame source) 
     {   	
     	log.info("update video-game {} : {}", id, source);
     	VideoGame dest = videoGameRepository.findById(id);
