@@ -47,7 +47,7 @@ public final class ValidationUtils
 	 * @param consumer
 	 * 		the consumer which will be called if there is any validation error.
 	 */
-	public static void consumeValidationMessages(Object o, Consumer <String> consumer)
+	public static void assertValidationMessages(Object o, Consumer <String> consumer)
 	{
 		String message = getAllValidationMessages(o);
 		if (message != null) consumer.accept(message);

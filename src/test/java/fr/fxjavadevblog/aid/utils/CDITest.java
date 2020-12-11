@@ -28,6 +28,10 @@ class CDITest
 {
     private static final String UUID_PATTERN = "([a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8})";
     
+    // Testing VideoGame @Dependent
+    @Inject
+    VideoGame videoGame;
+    
     // Testing @InjectedUUID
     @Inject
     @InjectUUID
@@ -42,19 +46,15 @@ class CDITest
     @DisplayName("UUID Injection")
     void testUUID()
     {
-    	ValidationUtils.consumeValidationMessages(this, Assertions::fail);  
+    	ValidationUtils.assertValidationMessages(this, Assertions::fail);  
     }
-    
-    // Testing VideoGame @Dependent
-    @Inject
-    VideoGame videoGame;
     
     @Test
     @DisplayName("VideoGame instance injection via CDI")
     void testVideoGameInjection()
     {
         assertNotNull(videoGame);
-        ValidationUtils.consumeValidationMessages(videoGame, Assertions::fail);  
+        ValidationUtils.assertValidationMessages(videoGame, Assertions::fail);  
     }
    
     @Test

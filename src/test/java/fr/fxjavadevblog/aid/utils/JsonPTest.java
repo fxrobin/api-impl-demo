@@ -1,6 +1,7 @@
 package fr.fxjavadevblog.aid.utils;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,7 @@ class JsonPTest {
 	void createJson() throws JsonProcessingException
 	{
 		VideoGame vg = VideoGameFactory.newInstance();
-		ValidationUtils.consumeValidationMessages(vg, Assertions::fail);
+		ValidationUtils.assertValidationMessages(vg, Assertions::fail);
 		vg.setGenre(Genre.SHOOT_THEM_UP);
 		vg.setName("Xenon Reborn");
 		
