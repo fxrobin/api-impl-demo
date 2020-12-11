@@ -17,11 +17,11 @@ import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 @Tag(TestingGroups.UNIT_TESTING)
-public class JsonPTest {
+class JsonPTest {
 	
 	@Test
 	@DisplayName("JSON serialization test")
-	public void createJson() throws JsonProcessingException
+	void createJson() throws JsonProcessingException
 	{
 		VideoGame vg = VideoGameFactory.newInstance();
 		ValidationUtils.consumeValidationMessages(vg, Assertions::fail);

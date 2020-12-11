@@ -18,6 +18,10 @@ public final class ValidationUtils
 {	
 	private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 	
+	private ValidationUtils() {
+		// protection
+	}
+	
 	/**
 	 * validates an object and serialize validation errors into a string.
 	 * 

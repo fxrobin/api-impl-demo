@@ -4,25 +4,25 @@ import java.util.List;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 
-public class PagedQueryWrapper {
+public final class PagedQueryWrapper {
 	
-	public static PagedResponse<List<?>> wrap(PanacheQuery<?> query) {
+	private PagedQueryWrapper() {
+		// Protection
+	}
+	
+	public static <T> PagedResponse<List<T>> wrap(PanacheQuery<T> query) {
 		
-		int page = query.page().index;
+		int currentPage = query.page().index;
 		
 		PagedMetadata metadata = PagedMetadata.builder()
     										  .resourceCount(query.count())
     										  .pageCount(query.pageCount())
-    										  .currentPage(page)
+    										  .currentPage(currentPage)
     										  .build();
     	
-    	PagedResponse<List<?>> pageResponse = PagedResponse.<List<?>>builder()
-    					.metadata(metadata)
-    					.data(query.list())
-    					.build();
-    	
-		return pageResponse;
+    	return PagedResponse.<List<T>>builder()
+    					    .metadata(metadata)
+    					    .data(query.list())
+    					    .build();
 	}
-	
-
 }

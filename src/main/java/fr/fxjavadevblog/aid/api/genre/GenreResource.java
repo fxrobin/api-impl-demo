@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GenreResource 
 {
 	@Inject
-	private VideoGameRepository videoGameRepository;
+	VideoGameRepository videoGameRepository;
 	
 
 	@GET

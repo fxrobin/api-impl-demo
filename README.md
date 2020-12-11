@@ -3,7 +3,6 @@
 ![Maven Package](https://github.com/fxrobin/api-impl-demo/workflows/Maven%20Package/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/fxrobin/api-impl-demo/badge)](https://www.codefactor.io/repository/github/fxrobin/api-impl-demo)
 
-
 # api-impl-demo
 
 A simple REST API following REST best practices.
@@ -17,7 +16,7 @@ H2 cannot be executed in native mode up to now. (not supported feature by Quarku
 
 ### Dev mode
 
-```
+```bash
 $ ./mvnw quarkus:dev
 ```
 
@@ -27,29 +26,29 @@ Then open a browser `http://localhost:8080/openapi-ui`
 
 Generating the uber-jar:
 
-```
+```bash
 $ ./mvnw package -Dquarkus.package.type=uber-jar
 ```
 
 then run it:
 
-```
+```bash
 $ java -jar ./target/api-impl-demo-[version]-SNAPSHOT-runner.jar
 ```
 
 then browse to: 
 
-- OpenApi definition : `http://localhost:8080/openapi`
-- OpenApi UI : `http://localhost:8080/openapi-ui/`
-- API : `http://localhost:8080/api/v1/video-games?page=0&size=100`
-- Health: `http://localhost:8080/health`
-- Metrics: `http://localhost:8080/metrics`
+  - OpenApi definition : `http://localhost:8080/openapi`
+  - OpenApi UI : `http://localhost:8080/openapi-ui/`
+  - API : `http://localhost:8080/api/v1/video-games?page=0&size=100`
+  - Health: `http://localhost:8080/health`
+  - Metrics: `http://localhost:8080/metrics`
 
 ## Examples
 
 ### HEAD `/api/v1/video-games`
 
-```
+```text
 HTTP/1.1 204 No Content
 Resource-Count: 1619
 connection: keep-alive
@@ -132,7 +131,6 @@ connection: keep-alive
 ```
 
 ### GET `/api/v1/video-games/098d7670-ac32-49e7-9752-93fb1d16d495`
-
 
 ```json
 {

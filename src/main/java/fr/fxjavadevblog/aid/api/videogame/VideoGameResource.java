@@ -67,8 +67,10 @@ public class VideoGameResource
                                          schema = @Schema(type = SchemaType.INTEGER))})
     public Response getMetaData()
     {
-    	Response response = Response.noContent().header("Resource-Count", videoGameRepository.count()).build();
-    	return response;
+    	return Response.noContent()
+    			       .header("Resource-Count", videoGameRepository.count())
+    			       .build();
+
     }
 
     @GET
@@ -87,7 +89,8 @@ public class VideoGameResource
          final int size)
     {
     	log.info("findAll video-games page:{} size:{}", page, size); 	
-    	PanacheQuery<VideoGame> query = videoGameRepository.findAll().page(page, size);  	
+    	PanacheQuery<VideoGame> query = videoGameRepository.findAll()
+    													   .page(page, size);  	
     	return PagedResponse.of(query);
     }
     

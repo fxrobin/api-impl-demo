@@ -7,7 +7,7 @@ import javax.enterprise.inject.Produces;
 
 
 /**
- * UUID CDI Producer.
+ * UUID CDI Producer and static method invocation.
  * 
  * @see InjectUUID
  * @author François-Xavier Robin
@@ -17,15 +17,26 @@ import javax.enterprise.inject.Produces;
 public class UUIDProducer
 {
     /**
-     * produces randomly generated UUID for primary keys.
+     * produces randomly generated UUID for primary keys for CDI Injection.
      *
      * @return UUID as a HEXA-STRING
      *
      */
     @Produces
     @InjectUUID
-    public static String produceUUIDAsString()
+    public String produceUUIDAsString()
     {
-        return UUID.randomUUID().toString();
+        return UUIDProducer.getUUIDAsString();
+    }
+    
+    /**
+     * produces randomly generated UUID for primary keys.
+     *
+     * @return UUID as a HEXA-STRING
+     *
+     */
+    public static String getUUIDAsString()
+    {
+    	return UUID.randomUUID().toString();
     }
 }
