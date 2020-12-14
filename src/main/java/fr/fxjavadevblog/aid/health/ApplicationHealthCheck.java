@@ -1,8 +1,9 @@
 package fr.fxjavadevblog.aid.health;
 
+import static org.apache.commons.lang3.time.DateFormatUtils.ISO_8601_EXTENDED_DATETIME_FORMAT;
+
 import javax.enterprise.context.ApplicationScoped;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -17,22 +18,23 @@ import fr.fxjavadevblog.aid.metadata.ApplicationConfig;
  *
  */
 
-@Liveness
+
 @ApplicationScoped
-public class ApplicationHealthCheck implements HealthCheck
+public class ApplicationHealthCheck 
 {
 	private static StopWatch chrono = StopWatch.createStarted();
 	
-    @Override
-    public HealthCheckResponse call()
+	@Liveness
+    public HealthCheck firstApiCheck()
     {
-       return HealthCheckResponse.named("Application")
+       return () -> HealthCheckResponse.named(ApplicationConfig.APP_NAME + " health check")
     		   .up()
     		   .withData("app_name", ApplicationConfig.APP_NAME)
     		   .withData("app_version", ApplicationConfig.APP_VERSION)
     		   .withData("api_version", ApplicationConfig.API_VERSION)
-    		   .withData("started_at", DateFormatUtils.ISO_8601_EXTENDED_DATETIME_FORMAT.format(chrono.getStartTime()))
+    		   .withData("started_at", ISO_8601_EXTENDED_DATETIME_FORMAT.format(chrono.getStartTime()))
     		   .withData("uptime", chrono.toString())
     		   .build();
     }
+	
 }
