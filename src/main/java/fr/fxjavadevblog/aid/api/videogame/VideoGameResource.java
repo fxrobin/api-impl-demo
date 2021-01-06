@@ -1,5 +1,9 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -31,10 +35,12 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import org.springframework.beans.BeanUtils;
 
 import fr.fxjavadevblog.aid.utils.PagedResponse;
+import fr.fxjavadevblog.aid.utils.QueryParameterUtils;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Sort;
+import io.quarkus.panache.common.Sort.Direction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -81,7 +87,12 @@ public class VideoGameResource
     @Operation(summary = "Get games", 
                description = "Get all video games on Atari ST. Content negociation can produce application/json and application/yaml")
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
-    public Response findAll(  			
+    public Response findAll(  	
+        
+         @Parameter(description="Sort order", required = false, example = "`name,-genre` will sort by name ascending and genre descending")
+         @QueryParam(value = "sort") 
+         final List<String> sortings,
+
          @Parameter(description="Page to display starting from 0", required = true)
          @QueryParam(value = "page") 
          @DefaultValue("0")
@@ -94,9 +105,11 @@ public class VideoGameResource
          @Min(2) @Max(200)
          final int size)
     {
-    	log.info("findAll video-games page:{} size:{}", page, size); 	
-    	PanacheQuery<VideoGame> query = videoGameRepository.findAll()
-    													   .page(page, size);  	
+        log.info("findAll video-games page:{} size:{} sort:{}", page, size, sortings); 	
+
+        Sort sort = QueryParameterUtils.createSort(sortings);
+        PanacheQuery<VideoGame> query = videoGameRepository.findAll(sort)
+                                                           .page(page, size);  	                                                   
     	return PagedResponse.of(query);
     }
     
@@ -119,7 +132,8 @@ public class VideoGameResource
     {   
     	log.info("post video-game {}", source);
     	VideoGame dest = CDI.current().select(VideoGame.class).get();
-    	BeanUtils.copyProperties(source, dest);
+        dest.setName(source.getName());
+        dest.setGenre(source.getGenre());
         videoGameRepository.persistAndFlush(dest);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder().path(dest.getId());
     	return Response.created(uriBuilder.build()).build();
@@ -144,7 +158,8 @@ public class VideoGameResource
     {   	
     	log.info("update video-game {} : {}", id, source);
     	VideoGame dest = videoGameRepository.findById(id);
-    	BeanUtils.copyProperties(source, dest);
+    	dest.setName(source.getName());
+        dest.setGenre(source.getGenre());
     	return Response.ok().entity(dest).build();
     }
 
