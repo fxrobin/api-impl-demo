@@ -8,6 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.HEAD;
 import javax.ws.rs.POST;
@@ -16,7 +17,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -80,11 +84,13 @@ public class VideoGameResource
     public Response findAll(  			
          @Parameter(description="Page to display starting from 0", required = true)
          @QueryParam(value = "page") 
+         @DefaultValue("0")
          @Min(0) @Max(Integer.MAX_VALUE) 
          final int page, 
          
          @Parameter(description="Number of items to be displayed per page", required = true)
          @QueryParam(value = "size") 
+         @DefaultValue("50")
          @Min(2) @Max(200)
          final int size)
     {
@@ -108,13 +114,14 @@ public class VideoGameResource
     description = "Create a new game. Content negociation can produce application/json and application/yaml")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response post(VideoGame source) 
+    public Response post(VideoGame source, @Context UriInfo uriInfo) 
     {   
     	log.info("post video-game {}", source);
     	VideoGame dest = CDI.current().select(VideoGame.class).get();
     	BeanUtils.copyProperties(source, dest);
-    	videoGameRepository.persistAndFlush(dest);
-    	return Response.ok().entity(dest).build();
+        videoGameRepository.persistAndFlush(dest);
+        UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder().path(dest.getId());
+    	return Response.created(uriBuilder.build()).build();
     }
     
     @Transactional
