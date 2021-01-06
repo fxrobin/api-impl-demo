@@ -114,6 +114,7 @@ public class VideoGameResource
     description = "Create a new game. Content negociation can produce application/json and application/yaml")
     @Consumes("application/json")
     @Produces("application/json")
+    @APIResponse(responseCode = "201", description = "The game has been created. The `Location` header contains de URI to the newly created game.")
     public Response post(VideoGame source, @Context UriInfo uriInfo) 
     {   
     	log.info("post video-game {}", source);
