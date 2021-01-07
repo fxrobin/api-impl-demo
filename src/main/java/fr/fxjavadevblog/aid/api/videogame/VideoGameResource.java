@@ -40,7 +40,6 @@ import fr.fxjavadevblog.aid.utils.PagedResponse;
 import fr.fxjavadevblog.aid.utils.QueryParameterUtils;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
-import io.quarkus.panache.common.Sort.Direction;
 import lombok.extern.slf4j.Slf4j;
 
 /**
