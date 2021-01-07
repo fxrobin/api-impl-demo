@@ -91,6 +91,9 @@ public class VideoGameResource
          @Parameter(description="Sort order", required = false, example = "`name,-genre` will sort by name ascending and genre descending")
          @QueryParam(value = "sort") 
          final List<String> sortings,
+         
+         @Context
+         final UriInfo uriInfo,
 
          @Parameter(description="Page to display starting from 0", required = true)
          @QueryParam(value = "page") 

@@ -22,7 +22,7 @@ class VideoGameResourceTest extends VideoGameResource {
 
 	@Test
 	void testFindAll() {
-		Response response = this.findAll(null, 0, 50);
+		Response response = this.findAll(null, null, 0, 50);
 		assertCorrectResponse(response);
 	}
 
