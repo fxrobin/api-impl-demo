@@ -1,8 +1,6 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
@@ -88,7 +86,7 @@ public class VideoGameResource
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
     public Response findAll(  	
         
-         @Parameter(description="Sort order", required = false, example = "`name,-genre` will sort by name ascending and genre descending")
+         @Parameter(description="Sort order", required = false, example = "name,-genre will sort by name ascending and genre descending")
          @QueryParam(value = "sort") 
          final List<String> sortings,
          

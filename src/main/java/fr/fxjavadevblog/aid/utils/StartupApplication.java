@@ -1,8 +1,10 @@
 package fr.fxjavadevblog.aid.utils;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.h2.tools.Server;
@@ -24,8 +26,15 @@ public class StartupApplication {
 		log.info("Application started");
 		h2Server = Server.createWebServer();
 		h2Server.start();
-		log.info("H2 Started");
+		log.info("H2 Web Server Started");
 		log.info("H2 Port : {} . status {}", h2Server.getPort(), h2Server.getStatus());
+	}
+	
+	@PreDestroy
+	public void destroy()
+	{		
+		Optional.ofNullable(h2Server).ifPresent(Server::stop);
+		log.info("H2 Server stopped");
 	}
 
 }
