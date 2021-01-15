@@ -32,6 +32,7 @@ public class ApplicationHealthCheck
     		   .withData("app_name", ApplicationConfig.APP_NAME)
     		   .withData("app_version", ApplicationConfig.APP_VERSION)
     		   .withData("api_version", ApplicationConfig.API_VERSION)
+    		   .withData("api_base_uri", ApplicationConfig.API_VERSIONED_BASE_PATH)
     		   .withData("started_at", ISO_8601_EXTENDED_DATETIME_FORMAT.format(chrono.getStartTime()))
     		   .withData("uptime", chrono.toString())
     		   .build();
