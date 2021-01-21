@@ -1,6 +1,7 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
@@ -20,9 +21,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.Response.Status;
 
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -51,12 +55,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Path("/video-games")
 @Tag(name="Videogames", description = "CRUD operations over videogames")
-@Produces({"application/json", "application/yaml"})
-
+@Produces({MediaType.APPLICATION_JSON, "application/yaml"})
 @Slf4j
 public class VideoGameResource
-{
-    
+{    
     @Inject
     VideoGameRepository videoGameRepository;
     
@@ -66,18 +68,14 @@ public class VideoGameResource
      * @return
      */
     @HEAD
-    @Operation(summary = "Get video games metadata",
-    		   description = "Get video games metadata, like the total count (Resource-Count) as HTTP RESPONSE HEADERS") 
-    @APIResponse(responseCode = "204", 
-                      headers = {@Header(name = "Resource-Count", 
-                                         description = "total count of video games", 
-                                         schema = @Schema(type = SchemaType.INTEGER))})
+    @Operation(summary = "Get video games metadata", description = "Get video games metadata, like the total count (Resource-Count) as HTTP RESPONSE HEADERS") 
+    @APIResponse(responseCode = "204", description = "HTTP Headers contains metadata about video-game resources",
+                      headers = {@Header(name = "Resource-Count", description = "total count of video games", schema = @Schema(type = SchemaType.INTEGER))})
     public Response getMetaData()
     {
     	return Response.noContent()
     			       .header("Resource-Count", videoGameRepository.count())
     			       .build();
-
     }
 
     @GET
@@ -115,18 +113,24 @@ public class VideoGameResource
     
     @GET
     @Path("{id}")
+    @Operation(summary = "Get information about a particular game.", description = "Retrieve all data of a game. *Content Negociation* can produce JSON or YAML")
+    @APIResponse(responseCode = "200", description = "The game has been found.")
+    @APIResponse(responseCode = "404", description = "The game is not found. The provided game ID is incorrect.")
+    @Produces({MediaType.APPLICATION_JSON, "application/yaml"})
     public Response get(@PathParam("id") @NotNull String id)
     {
-    	log.info("get video-game {}", id);
-    	return Response.ok().entity(videoGameRepository.findById(id)).build();
+        log.info("get video-game {}", id);
+        VideoGame vg = videoGameRepository.findById(id);
+        ResponseBuilder responseBuilder =  Optional.ofNullable(vg)
+                                                   .map(game -> Response.ok().entity(game))
+                                                   .orElseGet(() -> Response.status(Status.NOT_FOUND));
+    	return responseBuilder.build();
     }
   
     @Transactional
     @POST
-    @Operation(summary = "Create a new game", 
-    description = "Create a new game. Content negociation can produce application/json and application/yaml")
-    @Consumes("application/json")
-    @Produces("application/json")
+    @Operation(summary = "Create a new game", description = "Create a new game.")
+    @Consumes(MediaType.APPLICATION_JSON)
     @APIResponse(responseCode = "201", description = "The game has been created. The `Location` header contains de URI to the newly created game.")
     public Response post(VideoGame source, @Context UriInfo uriInfo) 
     {   
@@ -142,25 +146,42 @@ public class VideoGameResource
     @Transactional
     @DELETE
     @Path("{id}")
+    @Operation(summary = "Delete a game", description = "Delete the game for the given UUID.")
+    @APIResponse(responseCode = "204", description = "The game has been deleted.")
+    @APIResponse(responseCode = "404", description = "The game does not exist.")
     public Response delete(@PathParam("id") String id)
     {   	
     	log.info("delete video-game {}", id);
-    	videoGameRepository.deleteById(id);
-    	return Response.ok().build();
+    	boolean deleted = videoGameRepository.deleteById(id);
+    	return deleted ? Response.noContent().build() : Response.status(Status.NOT_FOUND).build();
     }
     
     @Transactional
     @PUT
-    @Consumes("application/json")
-    @Produces("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
+    @Operation(summary = "Update a game", description = "Fully update the game for the given UUID.")
+    @APIResponse(responseCode = "200", description = "The game has been modified.")
+    @APIResponse(responseCode = "404", description = "The game does not exist.")
     public Response update(@PathParam("id") String id,  VideoGame source) 
     {   	
-    	log.info("update video-game {} : {}", id, source);
-    	VideoGame dest = videoGameRepository.findById(id);
-    	dest.setName(source.getName());
-        dest.setGenre(source.getGenre());
-    	return Response.ok().entity(dest).build();
+        log.info("update video-game {} : {}", id, source);
+        ResponseBuilder responseBuilder;
+
+        VideoGame dest = videoGameRepository.findById(id);
+        if (dest == null)
+        {
+            responseBuilder = Response.status(Status.NOT_FOUND);
+        }
+        else
+        {
+            dest.setName(source.getName());
+            dest.setGenre(source.getGenre());
+            responseBuilder = Response.ok().entity(dest);
+        }
+        
+        return responseBuilder.build();
     }
 
 }
