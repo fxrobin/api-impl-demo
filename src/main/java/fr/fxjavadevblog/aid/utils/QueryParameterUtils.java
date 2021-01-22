@@ -4,10 +4,12 @@ import java.util.List;
 
 import io.quarkus.panache.common.Sort;
 import io.quarkus.panache.common.Sort.Direction;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Utility class for http request parameters.
  */
+@Slf4j
 public class QueryParameterUtils {
 
     private QueryParameterUtils()
@@ -24,20 +26,24 @@ public class QueryParameterUtils {
      * @return
      *      Instance of Sort.
      */
-    public static Sort createSort(List<String> paramValues)
+    public static Sort createSort(String sortClause)
     {
         Sort sort = Sort.by();
+        if (sortClause != null)
+        {
+            List <String> paramValues = List.of(sortClause.split(","));
 
-        if (paramValues != null && !paramValues.isEmpty())
-        { 
-            for(String param : paramValues)
-            {
-                Direction direction = param.startsWith("-") ? Direction.Descending : Direction.Ascending;
-                String field = (param.startsWith("-") || param.startsWith("+")) ? param.substring(1) : param;
-                sort = sort.and(field, direction);
-            }        
+            if (paramValues != null && !paramValues.isEmpty())
+            { 
+                for(String param : paramValues)
+                {
+                    Direction direction = param.startsWith("-") ? Direction.Descending : Direction.Ascending;
+                    String field = (param.startsWith("-") || param.startsWith("+")) ? param.substring(1) : param;
+                    sort = sort.and(field, direction);
+                    log.info("Sort clause : [param={} | field={} | direction={}]", param, field, direction);
+                }        
+            }
         }
-
         return sort;
     }
     

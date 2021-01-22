@@ -31,6 +31,8 @@ import javax.ws.rs.core.Response.Status;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.Explode;
+import org.eclipse.microprofile.openapi.annotations.enums.ParameterStyle;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -84,9 +86,9 @@ public class VideoGameResource
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
     public Response findAll(  	
         
-         @Parameter(description="Sort order", required = false, example = "name,-genre will sort by name ascending and genre descending")
+         @Parameter(description="Sort order", style = ParameterStyle.FORM, required = false, example = "name,-genre")
          @QueryParam(value = "sort") 
-         final List<String> sortings,
+         final String sortingClause,
          
          @Context
          final UriInfo uriInfo,
@@ -103,9 +105,9 @@ public class VideoGameResource
          @Min(2) @Max(200)
          final int size)
     {
-        log.info("findAll video-games page:{} size:{} sort:{}", page, size, sortings); 	
-
-        Sort sort = QueryParameterUtils.createSort(sortings);
+        log.info("findAll video-games page:{} size:{} sort:{}", page, size, sortingClause); 	
+        
+        Sort sort = QueryParameterUtils.createSort(sortingClause);
         PanacheQuery<VideoGame> query = videoGameRepository.findAll(sort)
                                                            .page(page, size);  	                                                   
     	return PagedResponse.of(query);
