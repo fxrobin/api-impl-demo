@@ -40,7 +40,7 @@ public class Splitter {
 	public static List<String> split(String source, String delimiters)
 	{
 		String[] splitted = StringUtils.split(source, delimiters);
-        return Arrays.asList(splitted);
+        return splitted != null ? Arrays.asList(splitted) : null;
 	}
 
 }
