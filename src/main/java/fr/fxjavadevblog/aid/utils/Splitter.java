@@ -15,6 +15,10 @@ public class Splitter {
 	
 	public static final String DEFAULT_DELIM = ",|";
 	
+	private Splitter() {
+		// protection
+	}
+	
 	/**
 	 * splits a String with the default delimiters "," or "|". They can be mixed.
 	 * 
