@@ -1,6 +1,9 @@
 package fr.fxjavadevblog.aid.utils;
 
+import java.util.Arrays;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 
 import io.quarkus.panache.common.Sort;
 import io.quarkus.panache.common.Sort.Direction;
@@ -30,8 +33,8 @@ public class QueryParameterUtils {
     {
         Sort sort = Sort.by();
         if (sortClause != null)
-        {
-            List <String> paramValues = List.of(sortClause.split(","));
+        {        	
+            List <String> paramValues = Splitter.split(sortClause);
 
             if (paramValues != null && !paramValues.isEmpty())
             { 
