@@ -39,8 +39,13 @@ public class Splitter {
 	 */
 	public static List<String> split(String source, String delimiters)
 	{
-		String[] splitted = StringUtils.split(source, delimiters);
-        return splitted != null ? Arrays.asList(splitted) : null;
+		List <String> result = null;
+		if (source != null && delimiters != null)
+		{
+			String[] splitted = StringUtils.split(source, delimiters);
+	        result = Arrays.asList(splitted);
+		}
+		return result;				
 	}
 
 }
