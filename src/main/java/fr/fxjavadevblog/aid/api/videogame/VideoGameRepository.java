@@ -5,6 +5,7 @@ import javax.enterprise.context.ApplicationScoped;
 import fr.fxjavadevblog.aid.api.genre.Genre;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
+import io.quarkus.panache.common.Sort;
 
 /**
  * CRUD repository for the VideoGame class. Primary key is a UUID represented by a String.
@@ -27,8 +28,8 @@ public class VideoGameRepository implements PanacheRepositoryBase<VideoGame, Str
      * @return
      *    a list of video games
      */
-    public PanacheQuery<VideoGame> findByGenre(Genre genre)
+    public PanacheQuery<VideoGame> findByGenre(Genre genre, Sort sort)
     {
-    	return find("genre", genre);
+    	return this.find("genre", sort, genre);
     }
 }

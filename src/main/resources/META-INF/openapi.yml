@@ -23,13 +23,20 @@ paths:
     get:
       tags:
       - Health and Metrics
+      summary: Returns information (JSON) about the API and the backend resources health.
       responses:
         "200":
-          description: OK
+          description: OK           
+        "500":
+          description: The API is not ready.
+        "404":
+          description: There is no monitored API at this address.
+            
   /metrics:
     get:
       tags:
       - Health and Metrics
+      summary: Returns statistics (PLAIN TEXT) about the running API.
       responses:
         "200":
           description: OK

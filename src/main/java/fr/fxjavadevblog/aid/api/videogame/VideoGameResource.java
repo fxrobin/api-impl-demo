@@ -1,6 +1,5 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.enterprise.inject.spi.CDI;
@@ -23,15 +22,14 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.enums.Explode;
 import org.eclipse.microprofile.openapi.annotations.enums.ParameterStyle;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -81,12 +79,13 @@ public class VideoGameResource
     }
 
     @GET
-    @Operation(summary = "Get games", 
+    @Operation(summary = "Video-game resources (paging, sorting, filtering (TODO))", 
                description = "Get all video games on Atari ST. Content negociation can produce application/json and application/yaml")
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
+    @APIResponse(responseCode = "206", description = "Partial response. Paged.")
     public Response findAll(  	
         
-         @Parameter(description="Sort order", style = ParameterStyle.FORM, required = false, example = "name,-genre")
+         @Parameter(description="Sort order", required = false, example = "name,-genre", allowReserved = true)
          @QueryParam(value = "sort") 
          final String sortingClause,
          
