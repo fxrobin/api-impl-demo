@@ -20,8 +20,8 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.videogame.VideoGame;
 import fr.fxjavadevblog.aid.api.videogame.VideoGameRepository;
-import fr.fxjavadevblog.aid.utils.PagedResponse;
-import fr.fxjavadevblog.aid.utils.QueryParameterUtils;
+import fr.fxjavadevblog.aid.utils.jaxrs.QueryParameterUtils;
+import fr.fxjavadevblog.aid.utils.pagination.PagedResponse;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
 import lombok.extern.slf4j.Slf4j;

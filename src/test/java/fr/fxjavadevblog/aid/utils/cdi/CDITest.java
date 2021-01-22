@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils;
+package fr.fxjavadevblog.aid.utils.cdi;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import fr.fxjavadevblog.aid.api.videogame.VideoGame;
 import fr.fxjavadevblog.aid.api.videogame.VideoGameFactory;
+import fr.fxjavadevblog.aid.utils.TestingGroups;
+import fr.fxjavadevblog.aid.utils.validation.ValidationUtils;
 import io.quarkus.test.junit.QuarkusTest;
 
 /**

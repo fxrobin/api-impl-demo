@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils;
+package fr.fxjavadevblog.aid.utils.cdi;
 
 
 import java.lang.annotation.ElementType;

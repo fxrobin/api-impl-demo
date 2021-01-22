@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils;
+package fr.fxjavadevblog.aid.utils.commons;
 
 import java.util.Arrays;
 import java.util.List;

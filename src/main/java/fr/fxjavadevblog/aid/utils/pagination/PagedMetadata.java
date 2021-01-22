@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils;
+package fr.fxjavadevblog.aid.utils.pagination;
 
 import lombok.Builder;
 import lombok.Getter;

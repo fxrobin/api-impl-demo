@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils;
+package fr.fxjavadevblog.aid.utils.validation;
 
 import java.util.Set;
 import java.util.function.Consumer;

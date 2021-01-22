@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils;
+package fr.fxjavadevblog.aid.utils.jaxrs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import fr.fxjavadevblog.aid.utils.TestingGroups;
 
 @Tag(TestingGroups.UNIT_TESTING)
 class GenericEnumConverterTest

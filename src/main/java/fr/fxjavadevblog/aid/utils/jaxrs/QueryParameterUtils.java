@@ -1,7 +1,8 @@
-package fr.fxjavadevblog.aid.utils;
+package fr.fxjavadevblog.aid.utils.jaxrs;
 
 import java.util.List;
 
+import fr.fxjavadevblog.aid.utils.commons.Splitter;
 import io.quarkus.panache.common.Sort;
 import io.quarkus.panache.common.Sort.Direction;
 import lombok.extern.slf4j.Slf4j;

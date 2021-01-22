@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils;
+package fr.fxjavadevblog.aid.utils.commons;
 
 import java.sql.SQLException;
 import java.util.Optional;
