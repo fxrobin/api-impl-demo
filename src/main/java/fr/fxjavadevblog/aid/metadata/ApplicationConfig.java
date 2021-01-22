@@ -22,7 +22,7 @@ import org.eclipse.microprofile.openapi.annotations.info.Info;
 
 public class ApplicationConfig extends Application {
 	
-	// this constants are used by OpenApi definition and by the response of /health
+	// these constants are used by OpenApi definition and by the response of /health
 	
 	public static final String PATH_DELIM = "/";
 
