@@ -34,6 +34,7 @@ public class QueryParameterUtils {
 			for (String param : paramValues) {
 				Direction direction = param.startsWith("-") ? Direction.Descending : Direction.Ascending;
 				String field = (param.startsWith("-") || param.startsWith("+")) ? param.substring(1) : param;
+				field = field.trim();
 				sort = sort.and(field, direction);
 				log.info("Sort clause : [param={} | field={} | direction={}]", param, field, direction);
 			}
