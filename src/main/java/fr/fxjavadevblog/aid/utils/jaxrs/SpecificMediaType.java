@@ -7,13 +7,14 @@ package fr.fxjavadevblog.aid.utils.jaxrs;
  * @author robin
  *
  */
-public final class SpecificMediaType {
-	
-	private SpecificMediaType() {
-		// protection
-	}
-	
+public final class SpecificMediaType 
+{
 	public final static String APPLICATION_YAML = "application/yaml";
 	public final static String APPLICATION_PROBLEM_JSON = "application/problem+json";
+		
+	private SpecificMediaType() 
+	{
+		// protection
+	}
 
 }
