@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fr.fxjavadevblog.aid.api.genre.Genre;
+import fr.fxjavadevblog.aid.utils.jaxrs.Filtering;
 import fr.fxjavadevblog.aid.utils.jaxrs.Pagination;
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -23,7 +24,7 @@ class VideoGameResourceTest extends VideoGameResource {
 
 	@Test
 	void testFindAll() {
-		Response response = this.findAll(Pagination.builder().page(0).size(50).build(), null);
+		Response response = this.findAll(Pagination.builder().page(0).size(50).build(), new Filtering());
 		assertCorrectResponse(response);
 	}
 

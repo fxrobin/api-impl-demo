@@ -79,8 +79,16 @@ public class Filtering
 	{
 		this.modelClass = clazz;
 		filters = new LinkedList<>();	
-		MultivaluedMap <String, String> parameters = uriInfo.getQueryParameters();	
-		parameters.forEach(convertParameterToFilter());		
+		MultivaluedMap <String, String> parameters;
+		if (uriInfo != null)
+	    {
+			 parameters = uriInfo.getQueryParameters();
+			 parameters.forEach(convertParameterToFilter());
+	    }
+		else
+		{
+			log.info("No uriInfo to get parameters from");
+		}				
 	}
 	
 	public boolean isFilterPresent()
