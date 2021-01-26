@@ -40,6 +40,7 @@ import fr.fxjavadevblog.aid.utils.jaxrs.Pagination;
 import fr.fxjavadevblog.aid.utils.jaxrs.QueryParameterUtils;
 import fr.fxjavadevblog.aid.utils.jaxrs.SpecificMediaType;
 import fr.fxjavadevblog.aid.utils.pagination.PagedResponse;
+import fr.fxjavadevblog.preconditions.Checker;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
 import lombok.extern.slf4j.Slf4j;
@@ -104,8 +105,7 @@ public class VideoGameResource
     {
         log.info("get video-game {}", id);
         VideoGame vg = videoGameRepository.findById(id);
-        if (vg == null) throw new ResourceNotFoundException();
-        
+        Checker.notNull("videogame", vg, ResourceNotFoundException::new);        
         ResponseBuilder responseBuilder =  Optional.ofNullable(vg)
                                                    .map(game -> Response.ok().entity(game))
                                                    .orElseGet(() -> Response.status(Status.NOT_FOUND));
@@ -155,16 +155,11 @@ public class VideoGameResource
         ResponseBuilder responseBuilder;
 
         VideoGame dest = videoGameRepository.findById(id);
-        if (dest == null)
-        {
-            responseBuilder = Response.status(Status.NOT_FOUND);
-        }
-        else
-        {
-            dest.setName(source.getName());
-            dest.setGenre(source.getGenre());
-            responseBuilder = Response.ok().entity(dest);
-        }
+        Checker.notNull("videogame", dest, ResourceNotFoundException::new);
+        
+        dest.setName(source.getName());
+        dest.setGenre(source.getGenre());
+        responseBuilder = Response.ok().entity(dest);
         
         return responseBuilder.build();
     }

@@ -17,6 +17,11 @@ public class ResourceNotFoundException extends ApiException {
 	public ResourceNotFoundException() {
 		super(Response.Status.NOT_FOUND, "Resource not found");		
 	}
+	
+	public ResourceNotFoundException(String message) {
+		super(Response.Status.NOT_FOUND, "Resource not found : " + message);		
+	}
+
 
 	
 	
