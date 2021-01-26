@@ -36,6 +36,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
+import fr.fxjavadevblog.aid.utils.jaxrs.Filter;
 import fr.fxjavadevblog.aid.utils.jaxrs.Filtering;
 import fr.fxjavadevblog.aid.utils.jaxrs.Pagination;
 import fr.fxjavadevblog.aid.utils.jaxrs.QueryParameterUtils;
@@ -94,7 +95,7 @@ public class VideoGameResource
         Sort sort = QueryParameterUtils.createSort(pagination.getSortingClause());
         
         filtering.setModelClass(VideoGame.class);        
-        List <Filtering.Filter> filterings = filtering.getFilters();
+        List <Filter> filterings = filtering.getFilters();
         
         if (CollectionUtils.isEmpty(filterings))
         {
