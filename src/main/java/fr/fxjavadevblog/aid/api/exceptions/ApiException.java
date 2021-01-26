@@ -5,7 +5,7 @@ import javax.ws.rs.core.Response;
 import lombok.Getter;
 
 @SuppressWarnings("serial")
-public abstract class ApiException extends RuntimeException 
+public class ApiException extends RuntimeException 
 {
     
 	@Getter

@@ -23,7 +23,7 @@ class VideoGameResourceTest extends VideoGameResource {
 
 	@Test
 	void testFindAll() {
-		Response response = this.findAll(Pagination.builder().page(0).size(50).build());
+		Response response = this.findAll(Pagination.builder().page(0).size(50).build(), null);
 		assertCorrectResponse(response);
 	}
 
@@ -31,9 +31,7 @@ class VideoGameResourceTest extends VideoGameResource {
 	@Test
 	void testGet() {
 		String id = "098d7670-ac32-49e7-9752-93fb1d16d495";
-		Response response = this.get(id);
-		assertCorrectResponse(response);
-		VideoGame vg = response.readEntity(VideoGame.class);
+		VideoGame vg = this.get(id);
 		assertNotNull(vg);
 		assertEquals("BIONIC COMMANDO", vg.getName());
 		assertEquals(Genre.SHOOT_THEM_UP, vg.getGenre());

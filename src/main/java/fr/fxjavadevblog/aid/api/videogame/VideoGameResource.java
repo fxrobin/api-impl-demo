@@ -1,6 +1,6 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
-import java.util.Optional;
+import java.util.List;
 
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
@@ -20,11 +20,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -36,6 +36,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
+import fr.fxjavadevblog.aid.utils.jaxrs.Filtering;
 import fr.fxjavadevblog.aid.utils.jaxrs.Pagination;
 import fr.fxjavadevblog.aid.utils.jaxrs.QueryParameterUtils;
 import fr.fxjavadevblog.aid.utils.jaxrs.SpecificMediaType;
@@ -80,18 +81,33 @@ public class VideoGameResource
     }
 
     @GET
-    @Operation(summary = "Video game resources with paging, sorting, filtering (TODO))", 
+    @Operation(summary = "Video game resources with paging, sorting and filtering.)", 
                description = "Get all video games on Atari ST. Content negociation can produce application/json and application/yaml")
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
-    @APIResponse(responseCode = "206", description = "Partial response. Paged.")
+    @APIResponse(responseCode = "206", description = "Partial response. Paged.", content= {@Content( schema=@Schema(implementation = VideoGame.class))})
     @APIResponse(responseCode = "412", description = "Invalid parameters.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) } )
-    public Response findAll(@BeanParam @Valid final Pagination pagination)
+    public Response findAll(@BeanParam @Valid final Pagination pagination, @BeanParam final Filtering filtering)
     {
         log.info("findAll video games. Pagination : {}", pagination); 	
         
+        PanacheQuery<VideoGame> query;
         Sort sort = QueryParameterUtils.createSort(pagination.getSortingClause());
-        PanacheQuery<VideoGame> query = videoGameRepository.findAll(sort)
-                                                           .page(pagination.getPage(), pagination.getSize());  	                                                   
+        
+        filtering.setModelClass(VideoGame.class);        
+        List <Filtering.Filter> filterings = filtering.getFilters();
+        
+        if (CollectionUtils.isEmpty(filterings))
+        {
+        	query = videoGameRepository.findAll(sort);
+        }
+        else
+        {
+        	String hqlQueryString = filtering.getQuery();
+        	log.info("query string : {}", hqlQueryString);
+        	query = videoGameRepository.find(hqlQueryString, sort, filtering.getParameterMap());        	
+        }        
+      
+        query = query.page(pagination.getPage(), pagination.getSize());       
     	return PagedResponse.of(query);
     }
     
@@ -100,15 +116,12 @@ public class VideoGameResource
     @Operation(summary = "Get information about a particular video game.", description = "Retrieve all data of a video game. *Content Negociation* can produce JSON or YAML")
     @APIResponse(responseCode = "200", description = "The video game has been found.")
     @APIResponse(responseCode = "404", description = "The video game is not found. The provided game ID is incorrect.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
-    public Response get(@PathParam("id") @NotNull String id)
+    public VideoGame get(@PathParam("id") @NotNull String id)
     {
         log.info("get video-game {}", id);
         VideoGame vg = videoGameRepository.findById(id);
         Checker.notNull("videogame", vg, ResourceNotFoundException::new);        
-        ResponseBuilder responseBuilder =  Optional.ofNullable(vg)
-                                                   .map(game -> Response.ok().entity(game))
-                                                   .orElseGet(() -> Response.status(Status.NOT_FOUND));
-    	return responseBuilder.build();
+    	return vg;
     }
   
     @Transactional
@@ -147,7 +160,7 @@ public class VideoGameResource
     @Operation(summary = "Update a videogame", description = "Fully update the videogame for the given UUID.")
     @APIResponse(responseCode = "200", description = "The videogame has been modified.")
     @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
-    public Response update(@PathParam("id") String id,  VideoGame source) 
+    public VideoGame update(@PathParam("id") String id,  VideoGame source) 
     {   	
         log.info("update video-game {} : {}", id, source);
 
@@ -157,7 +170,7 @@ public class VideoGameResource
         dest.setName(source.getName());
         dest.setGenre(source.getGenre());
         
-        return Response.ok().entity(dest).build();
+        return dest;
     }
 
 }
