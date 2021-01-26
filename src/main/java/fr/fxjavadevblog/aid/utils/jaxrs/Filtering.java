@@ -22,7 +22,6 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import fr.fxjavadevblog.aid.api.exceptions.ApiException;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,7 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Slf4j
 public class Filtering 
 {
@@ -75,20 +73,22 @@ public class Filtering
 		operationAliases.put("gte",  Operation.GREATER_THAN);		
 	}	
 	
-	public void setModelClass(Class <?> clazz)
+	public static Filtering of(Class <?> clazz, UriInfo uriInfo)
 	{
-		this.modelClass = clazz;
-		filters = new LinkedList<>();	
+		Filtering f = new Filtering();
+		f.modelClass = clazz;
+		f.filters = new LinkedList<>();	
 		MultivaluedMap <String, String> parameters;
 		if (uriInfo != null)
 	    {
 			 parameters = uriInfo.getQueryParameters();
-			 parameters.forEach(convertParameterToFilter());
+			 parameters.forEach(f.convertParameterToFilter());
 	    }
 		else
 		{
 			log.info("No uriInfo to get parameters from");
-		}				
+		}	
+		return f;
 	}
 	
 	public boolean isFilterPresent()

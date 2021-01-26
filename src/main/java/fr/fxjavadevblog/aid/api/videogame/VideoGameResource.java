@@ -1,7 +1,5 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
-import java.util.List;
-
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -17,6 +15,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,7 +23,6 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -32,16 +30,17 @@ import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
-import fr.fxjavadevblog.aid.utils.jaxrs.Filter;
 import fr.fxjavadevblog.aid.utils.jaxrs.Filtering;
 import fr.fxjavadevblog.aid.utils.jaxrs.Pagination;
 import fr.fxjavadevblog.aid.utils.jaxrs.QueryParameterUtils;
 import fr.fxjavadevblog.aid.utils.jaxrs.SpecificMediaType;
 import fr.fxjavadevblog.aid.utils.pagination.PagedResponse;
+import fr.fxjavadevblog.aid.utils.validation.SortableOn;
 import fr.fxjavadevblog.preconditions.Checker;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
@@ -87,14 +86,24 @@ public class VideoGameResource
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
     @APIResponse(responseCode = "206", description = "Partial response. Paged.", content= {@Content( schema=@Schema(implementation = VideoGame.class))})
     @APIResponse(responseCode = "412", description = "Invalid parameters.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) } )
-    public Response findAll(@BeanParam @Valid final Pagination pagination, @BeanParam final Filtering filtering)
+    public Response findAll(@BeanParam 
+    		                @Valid 
+    		                final Pagination pagination, 
+    		                
+    		                @Parameter(description="Sort order", required = false, allowReserved = true)
+                            @QueryParam(value = "sort") 
+                            @SortableOn({"name","genre"})
+	                        final String sortingClause,
+    		                
+	                        @Context
+	                        final UriInfo uriInfo)
     {
         log.info("findAll video games. Pagination : {}", pagination); 	
         
         PanacheQuery<VideoGame> query;
-        Sort sort = QueryParameterUtils.createSort(pagination.getSortingClause());
+        Sort sort = QueryParameterUtils.createSort(sortingClause);
         
-        filtering.setModelClass(VideoGame.class);            
+        Filtering filtering = Filtering.of(VideoGame.class, uriInfo);            
         
         if (!filtering.isFilterPresent())
         {
