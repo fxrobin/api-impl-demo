@@ -56,7 +56,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Path("/video-games")
 @Tag(name="Videogames", description = "CRUD operations over videogames")
-@Produces({MediaType.APPLICATION_JSON, SpecificMediaType.APPLICATION_PROBLEM_JSON})
+@Produces({MediaType.APPLICATION_JSON, SpecificMediaType.APPLICATION_YAML})
 @Slf4j
 public class VideoGameResource
 {    
