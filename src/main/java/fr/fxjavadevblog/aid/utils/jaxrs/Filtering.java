@@ -62,9 +62,9 @@ public class Filtering
 		}
 	}
 	
-	public static Map<String, Operation> operationAliases = new HashMap<>();
+	private static final Map<String, Operation> operationAliases = new HashMap<>();
 	
-	public static Pattern pattern = Pattern.compile("^(like|eq|gte|lte){1}(:)(.*)");
+	private static final Pattern pattern = Pattern.compile("^(like|eq|gte|lte){1}(:)(.*)");
 	
 	static
 	{
@@ -100,7 +100,7 @@ public class Filtering
 	public void setModelClass(Class <?> clazz)
 	{
 		this.modelClass = clazz;
-		filters = new LinkedList<Filtering.Filter>();	
+		filters = new LinkedList<>();	
 		MultivaluedMap <String, String> parameters = uriInfo.getQueryParameters();	
 		parameters.forEach(convertParameterToFilter());		
 	}

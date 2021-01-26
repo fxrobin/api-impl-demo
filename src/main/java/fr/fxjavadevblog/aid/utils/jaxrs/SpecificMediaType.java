@@ -9,8 +9,8 @@ package fr.fxjavadevblog.aid.utils.jaxrs;
  */
 public final class SpecificMediaType 
 {
-	public final static String APPLICATION_YAML = "application/yaml";
-	public final static String APPLICATION_PROBLEM_JSON = "application/problem+json";
+	public static final String APPLICATION_YAML = "application/yaml";
+	public static final String APPLICATION_PROBLEM_JSON = "application/problem+json";
 		
 	private SpecificMediaType() 
 	{
