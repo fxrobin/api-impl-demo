@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import fr.fxjavadevblog.aid.api.exceptions.ApiException;
 import lombok.AllArgsConstructor;
@@ -44,7 +45,6 @@ public class Filtering
 	@Getter
 	private Class<?> modelClass;
 	
-	@Getter
 	private List <Filter> filters;
 	
 	private static Set <String> reservedWords = Stream.of("page","size","sort")
@@ -81,6 +81,11 @@ public class Filtering
 		filters = new LinkedList<>();	
 		MultivaluedMap <String, String> parameters = uriInfo.getQueryParameters();	
 		parameters.forEach(convertParameterToFilter());		
+	}
+	
+	public boolean isFilterPresent()
+	{
+		return CollectionUtils.isNotEmpty(filters);
 	}
 	
 	

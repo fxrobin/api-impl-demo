@@ -94,10 +94,9 @@ public class VideoGameResource
         PanacheQuery<VideoGame> query;
         Sort sort = QueryParameterUtils.createSort(pagination.getSortingClause());
         
-        filtering.setModelClass(VideoGame.class);        
-        List <Filter> filterings = filtering.getFilters();
+        filtering.setModelClass(VideoGame.class);            
         
-        if (CollectionUtils.isEmpty(filterings))
+        if (filtering.isFilterPresent())
         {
         	query = videoGameRepository.findAll(sort);
         }
