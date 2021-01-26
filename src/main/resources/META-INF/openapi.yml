@@ -2,7 +2,7 @@
 openapi: 3.0.3
 info:
   title: <overriden by annotation. see Application class>
-  description: Give access (CRUD) to every video games for the ATARI ST.
+  description: "Give access (CRUD) to every video games of the famous 90's computer : ATARI ST."
   contact:
     name: François-Xavier Robin
     url: https://www.fxjavadevblog.fr

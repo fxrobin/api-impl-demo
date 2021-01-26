@@ -55,7 +55,7 @@ import lombok.extern.slf4j.Slf4j;
 // JAX-RS + OpenAPI annotations 
 
 @Path("/video-games")
-@Tag(name="Videogames", description = "CRUD operations over videogames")
+@Tag(name="Videogames", description = "Videogame collection")
 @Produces({MediaType.APPLICATION_JSON, SpecificMediaType.APPLICATION_YAML})
 @Slf4j
 public class VideoGameResource
@@ -69,8 +69,8 @@ public class VideoGameResource
      * @return
      */
     @HEAD
-    @Operation(summary = "Get video games metadata", description = "Get video games metadata, like the total count (Resource-Count) as HTTP RESPONSE HEADERS") 
-    @APIResponse(responseCode = "204", description = "HTTP Headers contains metadata about video-game resources",
+    @Operation(summary = "Get video game metadata", description = "Get video games metadata, like the total count (Resource-Count) as HTTP RESPONSE HEADERS") 
+    @APIResponse(responseCode = "204", description = "HTTP Headers contains metadata about video game resources",
                       headers = {@Header(name = "Resource-Count", description = "total count of video games", schema = @Schema(type = SchemaType.INTEGER))})
     public Response getMetaData()
     {
@@ -80,14 +80,14 @@ public class VideoGameResource
     }
 
     @GET
-    @Operation(summary = "Video-game resources (paging, sorting, filtering (TODO))", 
+    @Operation(summary = "Video game resources with paging, sorting, filtering (TODO))", 
                description = "Get all video games on Atari ST. Content negociation can produce application/json and application/yaml")
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
     @APIResponse(responseCode = "206", description = "Partial response. Paged.")
     @APIResponse(responseCode = "412", description = "Invalid parameters.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) } )
     public Response findAll(@BeanParam @Valid final Pagination pagination)
     {
-        log.info("findAll video-games. Pagination : {}", pagination); 	
+        log.info("findAll video games. Pagination : {}", pagination); 	
         
         Sort sort = QueryParameterUtils.createSort(pagination.getSortingClause());
         PanacheQuery<VideoGame> query = videoGameRepository.findAll(sort)
@@ -97,10 +97,9 @@ public class VideoGameResource
     
     @GET
     @Path("{id}")
-    @Operation(summary = "Get information about a particular game.", description = "Retrieve all data of a game. *Content Negociation* can produce JSON or YAML")
-    @APIResponse(responseCode = "200", description = "The game has been found.")
-    @APIResponse(responseCode = "404", description = "The game is not found. The provided game ID is incorrect.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
-    @Produces({MediaType.APPLICATION_JSON, "application/yaml"})
+    @Operation(summary = "Get information about a particular video game.", description = "Retrieve all data of a video game. *Content Negociation* can produce JSON or YAML")
+    @APIResponse(responseCode = "200", description = "The video game has been found.")
+    @APIResponse(responseCode = "404", description = "The video game is not found. The provided game ID is incorrect.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
     public Response get(@PathParam("id") @NotNull String id)
     {
         log.info("get video-game {}", id);
@@ -114,9 +113,9 @@ public class VideoGameResource
   
     @Transactional
     @POST
-    @Operation(summary = "Create a new game", description = "Create a new game.")
+    @Operation(summary = "Create a new game", description = "Create a new videogame.")
     @Consumes(MediaType.APPLICATION_JSON)
-    @APIResponse(responseCode = "201", description = "The game has been created. The `Location` header contains de URI to the newly created game.")
+    @APIResponse(responseCode = "201", description = "The videogame has been created. The `Location` header contains de URI to the newly created game.")
     public Response post(VideoGame source, @Context UriInfo uriInfo) 
     {   
     	log.info("post video-game {}", source);
@@ -131,9 +130,9 @@ public class VideoGameResource
     @Transactional
     @DELETE
     @Path("{id}")
-    @Operation(summary = "Delete a game", description = "Delete the game for the given UUID.")
-    @APIResponse(responseCode = "204", description = "The game has been deleted.")
-    @APIResponse(responseCode = "404", description = "The game does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
+    @Operation(summary = "Delete a videogame", description = "Delete the videogame for the given UUID.")
+    @APIResponse(responseCode = "204", description = "The videogame has been deleted.")
+    @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
     public Response delete(@PathParam("id") String id)
     {   	
     	log.info("delete video-game {}", id);
@@ -144,24 +143,21 @@ public class VideoGameResource
     @Transactional
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    @Operation(summary = "Update a game", description = "Fully update the game for the given UUID.")
-    @APIResponse(responseCode = "200", description = "The game has been modified.")
-    @APIResponse(responseCode = "404", description = "The game does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
+    @Operation(summary = "Update a videogame", description = "Fully update the videogame for the given UUID.")
+    @APIResponse(responseCode = "200", description = "The videogame has been modified.")
+    @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
     public Response update(@PathParam("id") String id,  VideoGame source) 
     {   	
         log.info("update video-game {} : {}", id, source);
-        ResponseBuilder responseBuilder;
 
         VideoGame dest = videoGameRepository.findById(id);
         Checker.notNull("videogame", dest, ResourceNotFoundException::new);
         
         dest.setName(source.getName());
         dest.setGenre(source.getGenre());
-        responseBuilder = Response.ok().entity(dest);
         
-        return responseBuilder.build();
+        return Response.ok().entity(dest).build();
     }
 
 }
