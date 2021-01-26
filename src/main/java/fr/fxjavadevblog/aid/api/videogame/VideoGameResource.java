@@ -96,7 +96,7 @@ public class VideoGameResource
         
         filtering.setModelClass(VideoGame.class);            
         
-        if (filtering.isFilterPresent())
+        if (!filtering.isFilterPresent())
         {
         	query = videoGameRepository.findAll(sort);
         }
