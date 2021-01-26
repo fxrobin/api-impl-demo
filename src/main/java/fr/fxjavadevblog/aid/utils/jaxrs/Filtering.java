@@ -52,12 +52,13 @@ public class Filtering
 	
 	public enum Operation
 	{
-		EQUALS("="), LIKE("LIKE"), GREATER_THAN(">="), LESSER_THAN("<="), BETWEEN("TODO");
+		EQUALS("="), LIKE("LIKE"), GREATER_THAN(">="), LESSER_THAN("<=");
 		
 		@Getter
 		private final String hsqlOperation;
 		
-		private Operation(String operation) {
+		private Operation(String operation) 
+		{
 			this.hsqlOperation = operation;
 		}
 	}
@@ -72,30 +73,7 @@ public class Filtering
 		operationAliases.put("like", Operation.LIKE);
 		operationAliases.put("gte",  Operation.GREATER_THAN);
 		operationAliases.put("gte",  Operation.GREATER_THAN);		
-		operationAliases.put("between",  Operation.BETWEEN);
 	}	
-	
-	@Builder
-	@Getter
-	public static class Filter
-	{
-		private String field;
-		private Operation operation;
-		private Class<?> type;
-		private Object value;
-		
-		@Override
-		public String toString() {
-			StringBuilder builder = new StringBuilder();
-			builder.append(field);
-			builder.append(" ");
-			builder.append(operation.getHsqlOperation());
-			builder.append(" ");
-			builder.append(":");			
-			builder.append(field);	
-			return builder.toString();
-		}
-	}
 	
 	public void setModelClass(Class <?> clazz)
 	{
@@ -128,34 +106,8 @@ public class Filtering
 			{
 				try
 				{
-					Class <?> targetType = modelClass.getDeclaredField(k).getType();
-					
-					// inits.
-					Operation operation = Operation.EQUALS;
-					String value = v.get(0);
-					
-					// testing if the value as a specific operation "like:", "gte:", etc.
-					Matcher matcher = pattern.matcher(value);
-					if (matcher.matches())
-					{				
-						String operationValue = matcher.group(1);
-						operation = operationAliases.get(operationValue);
-					    value = matcher.group(3);
-					    if (operation == Operation.LIKE)
-					    {
-					    	value = "%"+value+"%";
-					    }
-					}
-					
-					Object convertedValue = ConvertUtils.convert(value, targetType);
-					
-					Filter f = Filter.builder()
-					      .field(k)
-					      .operation(operation)
-					      .value(convertedValue)
-					      .type(targetType)
-					      .build();
-					log.info("Adding filter [{}] {} [{}]", f.field, f.operation, f.value);
+					Filter f = createFilter(k, v.get(0));
+					log.info("Adding filter [{}] {} [{}]", f.getField(), f.getOperation(), f.getValue());
 					filters.add(f);
 				}
 				catch(NoSuchFieldException ex)
@@ -165,6 +117,39 @@ public class Filtering
 				}
 			}
 		};
+	}
+
+
+	
+	private Filter createFilter(String paramName, String paramValue) throws NoSuchFieldException 
+	{
+		Class <?> targetType = modelClass.getDeclaredField(paramName).getType();
+		
+		// inits.
+		Operation operation = Operation.EQUALS;
+		String value = paramValue;
+		
+		// testing if the value as a specific operation "like:", "gte:", etc.
+		Matcher matcher = pattern.matcher(value);
+		if (matcher.matches())
+		{				
+			String operationValue = matcher.group(1);
+			operation = operationAliases.get(operationValue);
+		    value = matcher.group(3);
+		    if (operation == Operation.LIKE)
+		    {
+		    	value = "%"+value+"%";
+		    }
+		}
+		
+		Object convertedValue = ConvertUtils.convert(value, targetType);
+		
+		return Filter.builder()
+		      .field(paramName)
+		      .operation(operation)
+		      .value(convertedValue)
+		      .type(targetType)
+		      .build();
 	}
 
 
