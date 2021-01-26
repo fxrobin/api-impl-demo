@@ -43,7 +43,7 @@ public class VideoGame implements Serializable
 
     @Getter
     @Setter
-    @Column(name = "NAME", nullable = false, unique = true)
+    @Column(name = "NAME", nullable = false, unique = true, columnDefinition = "varchar_ignorecase")
     private String name;
 
     @Getter

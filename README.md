@@ -141,3 +141,35 @@ connection: keep-alive
   "version": 0
 }
 ```
+
+### GET `/api/v1/video-games?page=5&size=10&name=like:xeno`
+
+```json
+{
+  "metadata": {
+    "currentPage": 0,
+    "pageCount": 1,
+    "resourceCount": 3
+  },
+  "data": [
+    {
+      "id": "8642b67f-140f-4feb-a860-e391a11cdae5",
+      "name": "XENOMORPH",
+      "genre": "rpg",
+      "version": 0
+    },
+    {
+      "id": "c7b81d89-8da4-4abe-baed-03098861ed26",
+      "name": "XENON",
+      "genre": "shoot-them-up",
+      "version": 0
+    },
+    {
+      "id": "b557289b-1b66-4a1b-9804-c77daecbad5a",
+      "name": "XENON 2 : MEGABLAST",
+      "genre": "shoot-them-up",
+      "version": 0
+    }
+  ]
+}
+```
