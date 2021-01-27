@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.ws.rs.ext.ParamConverter;
 
+import org.apache.commons.beanutils.Converter;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @param <T>
  */
 
-public class GenericEnumConverter<T extends Enum<T>> implements ParamConverter<T>
+public class GenericEnumConverter<T extends Enum<T>> implements ParamConverter<T>, Converter
 {
     private static final Logger log = LoggerFactory.getLogger(GenericEnumConverter.class);
     
@@ -41,7 +42,7 @@ public class GenericEnumConverter<T extends Enum<T>> implements ParamConverter<T
      * @return
      *    a generic converter used by JAX-RS.
      */
-    public static <T extends Enum<T>> ParamConverter<T> of(Class<T> t)
+    public static <T extends Enum<T>> GenericEnumConverter<T> of(Class<T> t)
     {
         return new GenericEnumConverter<>(t);
     }
@@ -74,7 +75,7 @@ public class GenericEnumConverter<T extends Enum<T>> implements ParamConverter<T
     public T fromString(String value)
     {	
         T returnedValue = biMap.inverseBidiMap().get(value); 
-        log.debug("Converting String \"{}\" to {}.{}", value, returnedValue.getClass(), returnedValue);
+        log.debug("Converting String \"{}\" to {}", value, returnedValue);
         return returnedValue;
     }
     
@@ -89,4 +90,10 @@ public class GenericEnumConverter<T extends Enum<T>> implements ParamConverter<T
         log.debug("Converting Enum {}.{} to String \"{}\"", t.getClass(), t, returnedValue);
         return returnedValue;
     }
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <U> U convert(Class<U> type, Object value) {
+		return (U) fromString(value.toString());
+	}
 }

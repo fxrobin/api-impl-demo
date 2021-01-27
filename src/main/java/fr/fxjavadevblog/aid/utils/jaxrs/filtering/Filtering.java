@@ -21,6 +21,7 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.collections4.CollectionUtils;
 
 import fr.fxjavadevblog.aid.api.exceptions.ApiException;
+import fr.fxjavadevblog.aid.utils.jaxrs.converters.GenericEnumConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -149,12 +150,17 @@ public class Filtering
 			String operationValue = matcher.group(1);
 			operation = operationAliases.get(operationValue);
 		    value = matcher.group(3);
+		    
+		    
 		    if (operation == Operation.LIKE)
 		    {
 		    	value = "%"+value+"%";
 		    }
 		}
 		
+		// values mapped to enum are converted throw a specific converter
+		// @see GenericEnumConverter and ConverterBootstrap.
+		// otherwise the value is converted through standard converters.
 		Object convertedValue = ConvertUtils.convert(value, targetType);
 		
 		return Filter.builder()

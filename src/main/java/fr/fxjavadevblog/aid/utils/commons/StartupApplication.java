@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StartupApplication {
 	
+	// embedding h2 webserver (web client) for dev purpose only.
 	private Server h2Server;
 	
 	@PostConstruct

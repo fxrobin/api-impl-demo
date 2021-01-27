@@ -7,6 +7,7 @@ import javax.ws.rs.ext.ParamConverter;
 import javax.ws.rs.ext.ParamConverterProvider;
 import javax.ws.rs.ext.Provider;
 
+import org.apache.commons.beanutils.ConvertUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +24,12 @@ import fr.fxjavadevblog.aid.utils.jaxrs.converters.GenericEnumConverter;
 public class GenreConverterProvider implements ParamConverterProvider
 {
     private static final Logger log = LoggerFactory.getLogger(GenreConverterProvider.class);
-    private final ParamConverter<Genre> converter = GenericEnumConverter.of(Genre.class);
+    private static final GenericEnumConverter<Genre> converter = GenericEnumConverter.of(Genre.class);
 
     static
     {
-        log.debug("Registering converter provider for Genre");
+        log.debug("Registering converter provider for Genre (JAX-RS + ConvertUtils");
+        ConvertUtils.register(converter, Genre.class);
     }
 
     @SuppressWarnings("unchecked")
