@@ -16,12 +16,15 @@ import javax.ws.rs.core.UriInfo;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.videogame.VideoGame;
 import fr.fxjavadevblog.aid.api.videogame.VideoGameRepository;
+import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
 import fr.fxjavadevblog.aid.utils.jaxrs.pagination.QueryParameterUtils;
 import fr.fxjavadevblog.aid.utils.pagination.PagedResponse;
@@ -61,7 +64,8 @@ public class GenreResource
 		   absolute = true, 
 		   description = "A measure of how long it takes to fetch all video games filtered by a given genre.", 
 		   unit = MetricUnits.MILLISECONDS)
-	@APIResponse(responseCode = "206", description = "Partial response. Paged.")
+    @APIResponse(responseCode = "206", description = "Partial response. Paged.", content= {@Content( schema=@Schema(implementation = VideoGame.class))})
+    @APIResponse(responseCode = "412", description = "Invalid parameters.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) } )
 	public Response findByGenre(@PathParam("genre") 
 	                            final Genre genre,
 	                            
