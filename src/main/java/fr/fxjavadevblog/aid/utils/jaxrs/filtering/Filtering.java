@@ -21,7 +21,6 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.collections4.CollectionUtils;
 
 import fr.fxjavadevblog.aid.api.exceptions.ApiException;
-import fr.fxjavadevblog.aid.utils.jaxrs.converters.GenericEnumConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
