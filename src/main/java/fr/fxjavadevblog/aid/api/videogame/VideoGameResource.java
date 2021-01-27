@@ -35,6 +35,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
+import fr.fxjavadevblog.aid.metadata.VideoGamePagedResponse;
 import fr.fxjavadevblog.aid.utils.jaxrs.filtering.Filtering;
 import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
@@ -84,7 +85,7 @@ public class VideoGameResource
     @Operation(summary = "Video game resources with paging, sorting and filtering.)", 
                description = "Get all video games on Atari ST. Content negociation can produce application/json and application/yaml")
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
-    @APIResponse(responseCode = "206", description = "Partial response. Paged.", content= {@Content( schema=@Schema(implementation = VideoGame.class))})
+    @APIResponse(responseCode = "206", description = "Partial response. Paged.", content= {@Content( schema=@Schema(implementation = VideoGamePagedResponse.class))})
     @APIResponse(responseCode = "412", description = "Invalid parameters.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) } )
     public Response findAll(@BeanParam 
     		                @Valid 
@@ -137,7 +138,9 @@ public class VideoGameResource
     @POST
     @Operation(summary = "Create a new game", description = "Create a new videogame.")
     @Consumes(MediaType.APPLICATION_JSON)
-    @APIResponse(responseCode = "201", description = "The videogame has been created. The `Location` header contains de URI to the newly created game.")
+    @APIResponse(responseCode = "201", description = "The videogame has been created. The `Location` header contains the URI to the newly created game."
+                 , headers = @Header(name = "Location", schema = @Schema(type = SchemaType.STRING))
+    )
     public Response post(VideoGame source, @Context UriInfo uriInfo) 
     {   
     	log.info("post video-game {}", source);

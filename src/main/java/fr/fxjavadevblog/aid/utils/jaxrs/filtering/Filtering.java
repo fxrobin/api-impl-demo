@@ -48,29 +48,16 @@ public class Filtering
 	private static Set <String> reservedWords = Stream.of("page","size","sort")
 			                                          .collect(Collectors.toSet());
 	
-	public enum Operation
-	{
-		EQUALS("="), LIKE("LIKE"), GREATER_THAN(">="), LESSER_THAN("<=");
-		
-		@Getter
-		private final String hsqlOperation;
-		
-		private Operation(String operation) 
-		{
-			this.hsqlOperation = operation;
-		}
-	}
-	
-	private static final Map<String, Operation> operationAliases = new HashMap<>();
+	private static final Map<String, FilterOperation> operationAliases = new HashMap<>();
 	
 	private static final Pattern pattern = Pattern.compile("^(like|eq|gte|lte){1}(:)(.*)");
 	
 	static
 	{
-		operationAliases.put("equ", Operation.EQUALS);
-		operationAliases.put("like", Operation.LIKE);
-		operationAliases.put("gte",  Operation.GREATER_THAN);
-		operationAliases.put("gte",  Operation.GREATER_THAN);		
+		operationAliases.put("equ", FilterOperation.EQUALS);
+		operationAliases.put("like", FilterOperation.LIKE);
+		operationAliases.put("gte",  FilterOperation.GREATER_THAN);
+		operationAliases.put("gte",  FilterOperation.GREATER_THAN);		
 	}	
 	
 	public static Filtering of(Class <?> clazz, UriInfo uriInfo)
@@ -139,7 +126,7 @@ public class Filtering
 		Class <?> targetType = modelClass.getDeclaredField(paramName).getType();
 		
 		// inits.
-		Operation operation = Operation.EQUALS;
+		FilterOperation operation = FilterOperation.EQUALS;
 		String value = paramValue;
 		
 		// testing if the value as a specific operation "like:", "gte:", etc.
@@ -151,7 +138,7 @@ public class Filtering
 		    value = matcher.group(3);
 		    
 		    
-		    if (operation == Operation.LIKE)
+		    if (operation == FilterOperation.LIKE)
 		    {
 		    	value = "%"+value+"%";
 		    }

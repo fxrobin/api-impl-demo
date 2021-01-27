@@ -1,6 +1,5 @@
 package fr.fxjavadevblog.aid.utils.jaxrs.filtering;
 
-import fr.fxjavadevblog.aid.utils.jaxrs.filtering.Filtering.Operation;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,7 +8,7 @@ import lombok.Getter;
 public class Filter
 {
 	private String field;
-	private Operation operation;
+	private FilterOperation operation;
 	private Class<?> type;
 	private Object value;
 	

@@ -4,10 +4,14 @@ package fr.fxjavadevblog.aid.utils.pagination;
 import javax.ws.rs.core.Response;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class PagedResponse <T> 
 {

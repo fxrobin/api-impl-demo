@@ -24,9 +24,14 @@ paths:
       tags:
       - Health and Metrics
       summary: Returns information (JSON) about the API and the backend resources health.
+      produces: application/json
       responses:
         "200":
-          description: OK           
+          description: OK   
+          content:
+            application/json:
+              schema:
+                type: Object        
         "500":
           description: The API is not ready.
         "404":
@@ -37,6 +42,12 @@ paths:
       tags:
       - Health and Metrics
       summary: Returns statistics (PLAIN TEXT) about the running API.
+      produces: text/plain
       responses:
         "200":
-          description: OK
+           description: OK
+           content:
+            text/plain:
+              schema:          
+                type: String
+              
