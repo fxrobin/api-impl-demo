@@ -27,7 +27,7 @@ public class ApplicationConfig extends Application {
 	public static final String PATH_DELIM = "/";
 
 	public static final String APP_NAME = "API for Atari ST Floppy Catalog";
-	public static final String APP_VERSION = "0.0.2";
+	public static final String APP_VERSION = "0.0.3";
 	public static final String API_BASE_PATH = "api";
 	public static final String API_VERSION = "v1";
 	public static final String API_VERSIONED_BASE_PATH = PATH_DELIM + API_BASE_PATH + PATH_DELIM + API_VERSION;
