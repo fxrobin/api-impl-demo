@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils.jaxrs;
+package fr.fxjavadevblog.aid.utils.jaxrs.converters;
 
 import java.util.EnumSet;
 import java.util.Optional;

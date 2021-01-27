@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils.jaxrs;
+package fr.fxjavadevblog.aid.utils.jaxrs.exceptions;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 import lombok.Builder;
 import lombok.Data;
 

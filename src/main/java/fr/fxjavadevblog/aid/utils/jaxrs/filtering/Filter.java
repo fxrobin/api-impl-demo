@@ -1,6 +1,6 @@
-package fr.fxjavadevblog.aid.utils.jaxrs;
+package fr.fxjavadevblog.aid.utils.jaxrs.filtering;
 
-import fr.fxjavadevblog.aid.utils.jaxrs.Filtering.Operation;
+import fr.fxjavadevblog.aid.utils.jaxrs.filtering.Filtering.Operation;
 import lombok.Builder;
 import lombok.Getter;
 

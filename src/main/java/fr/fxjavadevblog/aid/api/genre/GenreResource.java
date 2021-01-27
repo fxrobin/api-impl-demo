@@ -22,8 +22,8 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.videogame.VideoGame;
 import fr.fxjavadevblog.aid.api.videogame.VideoGameRepository;
-import fr.fxjavadevblog.aid.utils.jaxrs.Pagination;
-import fr.fxjavadevblog.aid.utils.jaxrs.QueryParameterUtils;
+import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
+import fr.fxjavadevblog.aid.utils.jaxrs.pagination.QueryParameterUtils;
 import fr.fxjavadevblog.aid.utils.pagination.PagedResponse;
 import fr.fxjavadevblog.aid.utils.validation.SortableOn;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;

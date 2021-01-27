@@ -35,10 +35,10 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
-import fr.fxjavadevblog.aid.utils.jaxrs.Filtering;
-import fr.fxjavadevblog.aid.utils.jaxrs.Pagination;
-import fr.fxjavadevblog.aid.utils.jaxrs.QueryParameterUtils;
-import fr.fxjavadevblog.aid.utils.jaxrs.SpecificMediaType;
+import fr.fxjavadevblog.aid.utils.jaxrs.filtering.Filtering;
+import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
+import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
+import fr.fxjavadevblog.aid.utils.jaxrs.pagination.QueryParameterUtils;
 import fr.fxjavadevblog.aid.utils.pagination.PagedResponse;
 import fr.fxjavadevblog.aid.utils.validation.SortableOn;
 import fr.fxjavadevblog.preconditions.Checker;

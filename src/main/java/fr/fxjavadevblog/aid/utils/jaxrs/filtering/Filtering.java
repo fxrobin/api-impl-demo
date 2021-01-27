@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils.jaxrs;
+package fr.fxjavadevblog.aid.utils.jaxrs.filtering;
 
 import java.util.HashMap;
 import java.util.LinkedList;

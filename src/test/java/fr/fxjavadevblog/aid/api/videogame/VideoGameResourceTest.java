@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fr.fxjavadevblog.aid.api.genre.Genre;
-import fr.fxjavadevblog.aid.utils.jaxrs.Pagination;
+import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest

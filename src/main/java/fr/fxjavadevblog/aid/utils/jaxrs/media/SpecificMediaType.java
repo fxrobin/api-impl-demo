@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils.jaxrs;
+package fr.fxjavadevblog.aid.utils.jaxrs.media;
 
 
 /**

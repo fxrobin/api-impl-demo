@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils.jaxrs;
+package fr.fxjavadevblog.aid.utils.jaxrs.pagination;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

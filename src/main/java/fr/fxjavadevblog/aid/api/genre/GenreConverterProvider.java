@@ -10,7 +10,7 @@ import javax.ws.rs.ext.Provider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.fxjavadevblog.aid.utils.jaxrs.GenericEnumConverter;
+import fr.fxjavadevblog.aid.utils.jaxrs.converters.GenericEnumConverter;
 
 /**
  * JAX-RS provider for Genre conversion. This converter is registered because of

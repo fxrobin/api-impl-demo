@@ -1,4 +1,4 @@
-package fr.fxjavadevblog.aid.utils.jaxrs;
+package fr.fxjavadevblog.aid.utils.jaxrs.exceptions;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
