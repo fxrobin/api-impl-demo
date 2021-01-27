@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <validation-config xmlns="http://jboss.org/xml/ns/javax/validation/configuration" version="1.1">
   <!-- registering a param name provider in order to have correct messages in ExceptioMapper -->
-  <parameter-name-provider>fr.fxjavadevblog.aid.utils.jaxrs.AnnotatedParameterNameProvider</parameter-name-provider>
+  <parameter-name-provider>fr.fxjavadevblog.aid.utils.jaxrs.exceptions.AnnotatedParameterNameProvider</parameter-name-provider>
 </validation-config>
