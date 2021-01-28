@@ -1,5 +1,7 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
+import java.net.URI;
+
 import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -35,7 +37,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
+import fr.fxjavadevblog.aid.api.genre.Genre;
 import fr.fxjavadevblog.aid.metadata.VideoGamePagedResponse;
+import fr.fxjavadevblog.aid.utils.jaxrs.converters.GenericEnumConverter;
 import fr.fxjavadevblog.aid.utils.jaxrs.filtering.Filtering;
 import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
@@ -62,7 +66,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class VideoGameResource
 {    
-    @Inject
+    private static final String VIDEOGAME_ARG = "videogame";
+	@Inject
     VideoGameRepository videoGameRepository;
     
     /**
@@ -130,7 +135,7 @@ public class VideoGameResource
     {
         log.info("get video-game {}", id);
         VideoGame vg = videoGameRepository.findById(id);
-        Checker.notNull("videogame", vg, ResourceNotFoundException::new);        
+        Checker.notNull(VIDEOGAME_ARG, vg, ResourceNotFoundException::new);        
     	return vg;
     }
   
@@ -143,7 +148,7 @@ public class VideoGameResource
     )
     public Response post(VideoGame source, @Context UriInfo uriInfo) 
     {   
-    	log.info("post video-game {}", source);
+    	log.info("post videogame {}", source);
     	VideoGame dest = CDI.current().select(VideoGame.class).get();
         dest.setName(source.getName());
         dest.setGenre(source.getGenre());
@@ -160,7 +165,7 @@ public class VideoGameResource
     @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
     public Response delete(@PathParam("id") String id)
     {   	
-    	log.info("delete video-game {}", id);
+    	log.info("Delete videogame {}", id);
     	boolean deleted = videoGameRepository.deleteById(id);
     	return deleted ? Response.noContent().build() : Response.status(Status.NOT_FOUND).build();
     }
@@ -177,12 +182,54 @@ public class VideoGameResource
         log.info("update video-game {} : {}", id, source);
 
         VideoGame dest = videoGameRepository.findById(id);
-        Checker.notNull("videogame", dest, ResourceNotFoundException::new);
+        Checker.notNull(VIDEOGAME_ARG, dest, ResourceNotFoundException::new);
         
         dest.setName(source.getName());
         dest.setGenre(source.getGenre());
         
         return dest;
+    }
+    
+    @Transactional
+    @PUT
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("{id}/name")
+    @Operation(summary = "Update the name of a videogame", description = "Only update the name of the videogame for the given UUID.")
+    @APIResponse(responseCode = "204", description = "The videogame has been modified.", headers = @Header(name = "Location", description = "URI of the updated video game."))
+    @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
+    public Response updateName(@PathParam("id") String id, String name, @Context UriInfo uriInfo) 
+    {   	
+        log.info("update video-game {} : name={}", id, name);
+
+        VideoGame dest = videoGameRepository.findById(id);
+        Checker.notNull(VIDEOGAME_ARG, dest, ResourceNotFoundException::new);        
+        
+        dest.setName(name);                
+        
+        URI uri = uriInfo.getBaseUriBuilder().path(VideoGameResource.class).path("{id}").build(id);                      
+        return Response.seeOther(uri).build();
+    }
+    
+    @Transactional
+    @PUT
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("{id}/genre")
+    @Operation(summary = "Update the genre of a videogame", description = "Only update the genre of the videogame for the given UUID.")
+    @APIResponse(responseCode = "204", description = "The videogame has been modified.", headers = @Header(name = "Location", description = "URI of the updated video game."))
+    @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
+    public Response updateGenre(@PathParam("id") String id, String genreString, @Context UriInfo uriInfo) 
+    {   	
+    	GenericEnumConverter<Genre> converter = GenericEnumConverter.of(Genre.class);
+    	Genre genre = converter.fromString(genreString);
+        log.info("update video-game {} : genre={}", id, genre);
+
+        VideoGame dest = videoGameRepository.findById(id);
+        Checker.notNull(VIDEOGAME_ARG, dest, ResourceNotFoundException::new);        
+        
+        dest.setGenre(genre);               
+        
+        URI uri = uriInfo.getBaseUriBuilder().path(VideoGameResource.class).path("{id}").build(id);                      
+        return Response.noContent().header("Location", uri.toString()).build();
     }
 
 }
