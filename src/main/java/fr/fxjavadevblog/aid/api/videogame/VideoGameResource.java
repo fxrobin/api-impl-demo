@@ -39,7 +39,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
 import fr.fxjavadevblog.aid.api.genre.Genre;
 import fr.fxjavadevblog.aid.metadata.VideoGamePagedResponse;
-import fr.fxjavadevblog.aid.utils.jaxrs.converters.GenericEnumConverter;
 import fr.fxjavadevblog.aid.utils.jaxrs.filtering.Filtering;
 import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
@@ -212,15 +211,13 @@ public class VideoGameResource
     
     @Transactional
     @PUT
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}/genre")
     @Operation(summary = "Update the genre of a videogame", description = "Only update the genre of the videogame for the given UUID.")
     @APIResponse(responseCode = "204", description = "The videogame has been modified.", headers = @Header(name = "Location", description = "URI of the updated video game."))
     @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
-    public Response updateGenre(@PathParam("id") String id, String genreString, @Context UriInfo uriInfo) 
+    public Response updateGenre(@PathParam("id") String id, Genre genre, @Context UriInfo uriInfo) 
     {   	
-    	GenericEnumConverter<Genre> converter = GenericEnumConverter.of(Genre.class);
-    	Genre genre = converter.fromString(genreString);
         log.info("update video-game {} : genre={}", id, genre);
 
         VideoGame dest = videoGameRepository.findById(id);
