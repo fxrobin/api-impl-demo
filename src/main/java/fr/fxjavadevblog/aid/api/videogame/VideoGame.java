@@ -12,8 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import fr.fxjavadevblog.aid.api.genre.Genre;
 import fr.fxjavadevblog.aid.utils.cdi.InjectUUID;
+import fr.fxjavadevblog.aid.utils.jaxrs.fields.FieldSet;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,6 +30,8 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 // CDI Annotation
 @Dependent
+
+@JsonFilter(FieldSet.ID)
 
 // JPA Annotation
 @Entity

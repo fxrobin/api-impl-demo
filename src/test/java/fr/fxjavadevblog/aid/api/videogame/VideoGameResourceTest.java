@@ -11,6 +11,10 @@ import javax.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fr.fxjavadevblog.aid.api.genre.Genre;
 import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
 import io.quarkus.test.junit.QuarkusTest;
@@ -25,15 +29,18 @@ class VideoGameResourceTest extends VideoGameResource {
 
 	@Test
 	void testFindAll() {
-		Response response = this.findAll(Pagination.builder().page(0).size(50).build(), null, null);
+		Response response = this.findAll(Pagination.builder().page(0).size(50).build(), null, null, null);
 		assertCorrectResponse(response);
 	}
 
 	// BIONIC COMMANDO : 098d7670-ac32-49e7-9752-93fb1d16d495
 	@Test
-	void testGet() {
+	void testGet() throws JsonMappingException, JsonProcessingException {
 		String id = "098d7670-ac32-49e7-9752-93fb1d16d495";
-		VideoGame vg = this.get(id);
+		Response response = this.get(id, null);
+		ObjectMapper om = new ObjectMapper();
+		String json = (String) response.getEntity();
+		VideoGame vg = om.readerFor(VideoGame.class).readValue(json);
 		assertNotNull(vg);
 		assertEquals("BIONIC COMMANDO", vg.getName());
 		assertEquals(Genre.SHOOT_THEM_UP, vg.getGenre());

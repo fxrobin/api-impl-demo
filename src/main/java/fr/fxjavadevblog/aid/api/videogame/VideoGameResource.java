@@ -39,6 +39,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
 import fr.fxjavadevblog.aid.api.genre.Genre;
 import fr.fxjavadevblog.aid.metadata.VideoGamePagedResponse;
+import fr.fxjavadevblog.aid.utils.jaxrs.fields.FieldSet;
 import fr.fxjavadevblog.aid.utils.jaxrs.filtering.Filtering;
 import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
@@ -95,10 +96,14 @@ public class VideoGameResource
     		                @Valid 
     		                final Pagination pagination, 
     		                
-    		                @Parameter(description="Sort order", required = false, allowReserved = true)
+    		                @Parameter(description="Sort order", required = false, allowReserved = true, example="name,genre")
                             @QueryParam(value = "sort") 
                             @SortableOn({"name","genre"})
 	                        final String sortingClause,
+	                        
+	    		            @Parameter(description = "comma separated values of the returned fields",  allowReserved = true, example = "name,genre")
+	    		            @QueryParam(value = "fields")
+	                        String fields,
     		                
 	                        @Context
 	                        final UriInfo uriInfo)
@@ -122,20 +127,27 @@ public class VideoGameResource
         }        
       
         query = query.page(pagination.getPage(), pagination.getSize());       
-    	return PagedResponse.of(query);
+    	return PagedResponse.builder().query(query).fieldSetExpression(fields).build().getResponse();
     }
     
     @GET
     @Path("{id}")
     @Operation(summary = "Get information about a particular video game.", description = "Retrieve all data of a video game. *Content Negociation* can produce JSON or YAML")
-    @APIResponse(responseCode = "200", description = "The video game has been found.")
+    @APIResponse(responseCode = "200", description = "The video game has been found.", content = @Content(schema = @Schema(implementation = VideoGame.class)))
     @APIResponse(responseCode = "404", description = "The video game is not found. The provided game ID is incorrect.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
-    public VideoGame get(@PathParam("id") @NotNull String id)
+    public Response get(@PathParam(value = "id")
+                        @Parameter(description = "id of the videogame", example = "098d7670-ac32-49e7-9752-93fb1d16d495")
+                        @NotNull 
+                        String id, 
+                        
+    		            @Parameter(description = "comma separated values of the returned fields", allowReserved = true, example = "name,genre")
+    		            @QueryParam(value = "fields")
+                        String fields)
     {
         log.info("get video-game {}", id);
         VideoGame vg = videoGameRepository.findById(id);
-        Checker.notNull(VIDEOGAME_ARG, vg, ResourceNotFoundException::new);        
-    	return vg;
+        Checker.notNull(VIDEOGAME_ARG, vg, ResourceNotFoundException::new);    
+    	return Response.ok(FieldSet.getJson(fields, vg)).build();
     }
   
     @Transactional

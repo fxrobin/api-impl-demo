@@ -8,6 +8,7 @@ import fr.fxjavadevblog.aid.api.exceptions.ApiException;
 import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * JAX-RS Exception Mapper Provider for any ApiException like ResourceNotFoundException.
@@ -15,6 +16,7 @@ import lombok.Data;
  */
 
 @Provider
+@Slf4j
 public class ApiExceptionMapper implements ExceptionMapper<ApiException>
 {
 	private static final String API_ERROR_MESSAGE = "API Exception";
@@ -36,7 +38,8 @@ public class ApiExceptionMapper implements ExceptionMapper<ApiException>
 	@Override
 	public Response toResponse(ApiException exception)
 	{
-		ApiError error = toValidationError(exception);	
+		ApiError error = toApiError(exception);	
+		log.error("ApiError : {}", exception );
 		return Response.status(exception.getStatus())
 				       .entity(error)
 				       .type(MEDIATYPE_PROBLEM_JSON)
@@ -49,7 +52,7 @@ public class ApiExceptionMapper implements ExceptionMapper<ApiException>
 	 * @param constraintViolation
 	 * @return
 	 */
-	private ApiError toValidationError(ApiException ex)
+	private ApiError toApiError(ApiException ex)
 	{			
 		return ApiError.builder()			   
 			   .message(API_ERROR_MESSAGE)

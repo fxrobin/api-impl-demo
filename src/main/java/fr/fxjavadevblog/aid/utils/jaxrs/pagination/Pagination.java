@@ -20,14 +20,14 @@ import lombok.ToString;
 @Builder
 public class Pagination 
 {	
-	@Parameter(description="Page to display starting from 0", required = true)
+	@Parameter(description="Page to display starting from 0", required = true, example = "0")
     @QueryParam(value = "page") 
     @Min(value=0, message="page must be equal or greater than 0") 
     @Max(value=Integer.MAX_VALUE, message="page must be equal or less than " + Integer.MAX_VALUE)
 	@Getter @Setter
 	private int page;
 	
-    @Parameter(description="Number of items to be displayed per page", required = true)
+    @Parameter(description="Number of items to be displayed per page", required = true, example="10")
     @QueryParam(value = "size") 
     @Min(value=2, message="size must be equal or greater than 2") 
     @Max(value=200, message="size must be equal or less than 200")

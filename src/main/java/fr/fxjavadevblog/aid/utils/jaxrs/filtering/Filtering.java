@@ -45,7 +45,7 @@ public class Filtering
 	
 	private List <Filter> filters;
 	
-	private static Set <String> reservedWords = Stream.of("page","size","sort")
+	private static Set <String> reservedWords = Stream.of("page","size","sort","fields")
 			                                          .collect(Collectors.toSet());
 	
 	private static final Map<String, FilterOperation> operationAliases = new HashMap<>();

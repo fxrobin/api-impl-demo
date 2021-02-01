@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.fxjavadevblog.aid.api.genre.Genre;
 import fr.fxjavadevblog.aid.api.videogame.VideoGame;
 import fr.fxjavadevblog.aid.api.videogame.VideoGameFactory;
+import fr.fxjavadevblog.aid.utils.jaxrs.fields.FieldSet;
 import fr.fxjavadevblog.aid.utils.validation.ValidationUtils;
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -30,7 +31,7 @@ class JsonPTest {
 		vg.setGenre(Genre.SHOOT_THEM_UP);
 		vg.setName("Xenon Reborn");
 		
-		ObjectMapper objectMapper = new ObjectMapper();
+		ObjectMapper objectMapper = FieldSet.createObjectMapper();
 		String json = objectMapper.writeValueAsString(vg);
 		assertNotNull(json);
 		assertTrue(json.contains("Xenon Reborn"), "JSON must contain Xenon Reborn");
