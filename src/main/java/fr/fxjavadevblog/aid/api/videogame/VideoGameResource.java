@@ -28,6 +28,7 @@ import javax.ws.rs.core.UriInfo;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.ParameterIn;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -90,6 +91,8 @@ public class VideoGameResource
     @Operation(summary = "Video game resources with paging, sorting and filtering.)", 
                description = "Get all video games on Atari ST. Content negociation can produce application/json and application/yaml")
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
+    @Parameter(in = ParameterIn.QUERY, name="name", description = "holds filtering expression : like, eq" )
+    @Parameter(in = ParameterIn.QUERY, name="genre", description = "holds filtering expression : eq")
     @APIResponse(responseCode = "206", description = "Partial response. Paged.", content= {@Content( schema=@Schema(implementation = VideoGamePagedResponse.class))})
     @APIResponse(responseCode = "412", description = "Invalid parameters.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) } )
     public Response findAll(@BeanParam 
