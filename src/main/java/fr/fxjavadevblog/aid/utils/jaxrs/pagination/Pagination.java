@@ -14,6 +14,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 
+/**
+ * Pagination class holds all the parameters and OpenAPI descriptions to specify paged responses like
+ * items per page (size) and the page index (page).
+ * 
+ * @author robin
+ *
+ */
+
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
