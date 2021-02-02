@@ -5,6 +5,7 @@ import javax.ws.rs.core.Application;
 
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
+import org.eclipse.microprofile.openapi.annotations.servers.Server;
 
 
 
@@ -13,12 +14,13 @@ import org.eclipse.microprofile.openapi.annotations.info.Info;
 @OpenAPIDefinition (
 	info = @Info(
 			title = ApplicationConfig.APP_NAME, 
-			version = ApplicationConfig.APP_VERSION
-			)
+			version = ApplicationConfig.APP_VERSION			
+			),
+	servers = @Server(url = ApplicationConfig.API_VERSIONED_BASE_PATH )
 		
 )
 
-@ApplicationPath(ApplicationConfig.API_VERSIONED_BASE_PATH)
+@ApplicationPath("/api/v1")
 
 public class ApplicationConfig extends Application {
 	
@@ -31,5 +33,7 @@ public class ApplicationConfig extends Application {
 	public static final String API_BASE_PATH = "api";
 	public static final String API_VERSION = "v1";
 	public static final String API_VERSIONED_BASE_PATH = PATH_DELIM + API_BASE_PATH + PATH_DELIM + API_VERSION;
+	
+	
 
 }

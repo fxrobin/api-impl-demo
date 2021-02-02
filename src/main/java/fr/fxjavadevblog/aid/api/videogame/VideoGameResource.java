@@ -134,7 +134,7 @@ public class VideoGameResource
     }
     
     @GET
-    @Path("{id}")
+    @Path("/{id}")
     @Operation(summary = "Get information about a particular video game.", description = "Retrieve all data of a video game. *Content Negociation* can produce JSON or YAML")
     @APIResponse(responseCode = "200", description = "The video game has been found.", content = @Content(schema = @Schema(implementation = VideoGame.class)))
     @APIResponse(responseCode = "404", description = "The video game is not found. The provided game ID is incorrect.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
@@ -173,7 +173,7 @@ public class VideoGameResource
     
     @Transactional
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     @Operation(summary = "Delete a videogame", description = "Delete the videogame for the given UUID.")
     @APIResponse(responseCode = "204", description = "The videogame has been deleted.")
     @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
@@ -187,7 +187,7 @@ public class VideoGameResource
     @Transactional
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("{id}")
+    @Path("/{id}")
     @Operation(summary = "Update a videogame", description = "Fully update the videogame for the given UUID.")
     @APIResponse(responseCode = "200", description = "The videogame has been modified.")
     @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
@@ -207,7 +207,7 @@ public class VideoGameResource
     @Transactional
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
-    @Path("{id}/name")
+    @Path("/{id}/name")
     @Operation(summary = "Update the name of a videogame", description = "Only update the name of the videogame for the given UUID.")
     @APIResponse(responseCode = "204", description = "The videogame has been modified.", headers = @Header(name = "Location", description = "URI of the updated video game."))
     @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
@@ -227,7 +227,7 @@ public class VideoGameResource
     @Transactional
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("{id}/genre")
+    @Path("/{id}/genre")
     @Operation(summary = "Update the genre of a videogame", description = "Only update the genre of the videogame for the given UUID.")
     @APIResponse(responseCode = "204", description = "The videogame has been modified.", headers = @Header(name = "Location", description = "URI of the updated video game."))
     @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
