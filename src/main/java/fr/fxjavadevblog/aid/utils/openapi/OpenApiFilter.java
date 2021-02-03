@@ -37,7 +37,7 @@ public void filterOpenAPI(OpenAPI openAPI) {
 	for(Entry <String, PathItem> entry : map.entrySet())
 	{
 		String jaxRsPath = entry.getKey();
-		String openApiPath = StringUtils.remove(jaxRsPath, ApplicationConfig.API_VERSIONED_BASE_PATH);
+		String openApiPath = StringUtils.remove(jaxRsPath, ApplicationConfig.APPLICATION_ROOT_VERSIONED);
 	    log.info("JAX-RS Path : {} converted to OpenAPI Path : {}", jaxRsPath, openApiPath);	
 	    newMap.put(openApiPath, entry.getValue());
 	}

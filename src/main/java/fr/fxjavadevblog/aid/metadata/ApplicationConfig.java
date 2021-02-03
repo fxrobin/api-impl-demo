@@ -20,7 +20,7 @@ import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 
 @OpenAPIDefinition (
 	info = @Info(title = ApplicationConfig.APP_NAME, version = ApplicationConfig.APP_VERSION),
-	servers = @Server(url = ApplicationConfig.API_VERSIONED_BASE_PATH ),
+	servers = @Server(url = ApplicationConfig.APPLICATION_ROOT_VERSIONED ),
 	components = @Components(
 					responses =	{
 						@APIResponse(name = ApplicationConfig.RESPONSE_API_ERROR, 						
@@ -45,12 +45,16 @@ public class ApplicationConfig extends Application {
 	// these constants are used by OpenApi definition and by the response of /health
 	
 	public static final String PATH_DELIM = "/";
-
+	
 	public static final String APP_NAME = "API for Atari ST Floppy Catalog";
 	public static final String APP_VERSION = "0.0.5";
 	public static final String API_BASE_PATH = "api";
 	public static final String API_VERSION = "v1";
-	public static final String API_VERSIONED_BASE_PATH = PATH_DELIM + API_BASE_PATH + PATH_DELIM + API_VERSION;
+	public static final String API_VERSIONED_BASE_PATH = PATH_DELIM + API_VERSION + PATH_DELIM + API_BASE_PATH ;
+	
+	public static final String APPLICATION_ROOT_VERSIONED = PATH_DELIM + API_VERSION;
+	
+	
 	
 	// aliases for OpenApi references via "ref=" annotation attribute.
 	public static final String SCHEMA_API_ERROR = "ApiError";
