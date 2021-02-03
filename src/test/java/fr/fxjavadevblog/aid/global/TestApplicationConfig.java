@@ -19,8 +19,6 @@ public class TestApplicationConfig {
 	/**
 	 * full URL to baseApi. Ex: http://localhost:8081/api/v1
 	 */
-	public static final String  REST_ASSURED_FULL_BASE_URI = String.format("%s/%s/%s", REST_ASSURED_HTTP_BASE, 
-			                                                                           ApplicationConfig.API_BASE_PATH, 
-			                                                                           ApplicationConfig.API_VERSION);
+	public static final String  REST_ASSURED_FULL_BASE_URI = REST_ASSURED_HTTP_BASE + ApplicationConfig.API_VERSIONED_BASE_PATH;
 
 }
