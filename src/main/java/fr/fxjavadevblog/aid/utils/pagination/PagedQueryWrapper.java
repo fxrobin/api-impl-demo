@@ -10,19 +10,21 @@ public final class PagedQueryWrapper {
 		// Protection
 	}
 	
-	public static <T> PagedResponse<List<T>> wrap(PanacheQuery<T> query) {
+	public static <T> PagedResponse<T> wrap(PanacheQuery<T> query) {
 		
 		int currentPage = query.page().index;
 		
-		PagedMetadata metadata = PagedMetadata.builder()
+		Metadata metadata = Metadata.builder()
     										  .resourceCount(query.count())
     										  .pageCount(query.pageCount())
     										  .currentPage(currentPage)
     										  .build();
     	
-    	return PagedResponse.<List<T>>builder()
+		List<T> results = query.list();
+		
+    	return PagedResponse.<T>builder()
     					    .metadata(metadata)
-    					    .data(query.list())
+    					    .data(results)
     					    .build();
 	}
 }

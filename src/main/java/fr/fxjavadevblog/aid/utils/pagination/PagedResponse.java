@@ -1,7 +1,11 @@
 package fr.fxjavadevblog.aid.utils.pagination;
 
 
+import java.util.List;
+
 import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,10 +25,12 @@ import lombok.ToString;
 public class PagedResponse <T> 
 {
 	@Getter
-	private PagedMetadata metadata;
+	@Schema(description = "contains the pagination metadata of the query")
+	private Metadata metadata;
 	
 	@Getter
-	private T data;
+	@Schema(description = "contains the resource collection of the query")
+	private List<T> data;
 	
 	@JsonIgnore
 	private PanacheQuery<?> query;

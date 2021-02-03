@@ -1,5 +1,7 @@
 package fr.fxjavadevblog.aid.utils.jaxrs.fields;
 
+import java.util.Arrays;
+
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,7 +44,7 @@ public class FieldSet {
 			String[] fields =  StringUtils.split(fieldSetExpression, ',');
 			fields = StringUtils.stripAll(fields);
 		    filterProvider.addFilter(ID, SimpleBeanPropertyFilter.filterOutAllExcept(fields));	   
-		    log.info("Field filter: {}", (Object[]) fields);
+		    log.info("Field filters: {}", Arrays.asList(fields));
 		}
 		else
 		{

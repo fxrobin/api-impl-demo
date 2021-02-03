@@ -1,7 +1,7 @@
 package fr.fxjavadevblog.aid.api.videogame;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
 
 import javax.ws.rs.core.Response;
 

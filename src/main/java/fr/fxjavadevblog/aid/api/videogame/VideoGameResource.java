@@ -39,6 +39,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
 import fr.fxjavadevblog.aid.api.genre.Genre;
+import fr.fxjavadevblog.aid.metadata.ApplicationConfig;
 import fr.fxjavadevblog.aid.metadata.VideoGamePagedResponse;
 import fr.fxjavadevblog.aid.utils.jaxrs.fields.FieldSet;
 import fr.fxjavadevblog.aid.utils.jaxrs.filtering.Filtering;
@@ -91,10 +92,10 @@ public class VideoGameResource
     @Operation(summary = "Video game resources with paging, sorting and filtering.)", 
                description = "Get all video games on Atari ST. Content negociation can produce application/json and application/yaml")
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
-    @Parameter(in = ParameterIn.QUERY, name="name", description = "holds filtering expression : like, eq" )
-    @Parameter(in = ParameterIn.QUERY, name="genre", description = "holds filtering expression : eq")
+    @Parameter(name="name", description = "holds filtering expression : like, eq", schema = @Schema(type = SchemaType.STRING) )
+    @Parameter(in = ParameterIn.QUERY, name="genre", description = "holds filtering expression : eq", schema = @Schema(type = SchemaType.STRING))
     @APIResponse(responseCode = "206", description = "Partial response. Paged.", content= {@Content( schema=@Schema(implementation = VideoGamePagedResponse.class))})
-    @APIResponse(responseCode = "412", description = "Invalid parameters.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) } )
+    @APIResponse(responseCode = "412", description = "Invalid parameters.", ref = ApplicationConfig.RESPONSE_API_ERROR)
     public Response findAll(@BeanParam 
     		                @Valid 
     		                final Pagination pagination, 
@@ -137,7 +138,7 @@ public class VideoGameResource
     @Path("/{id}")
     @Operation(summary = "Get information about a particular video game.", description = "Retrieve all data of a video game. *Content Negociation* can produce JSON or YAML")
     @APIResponse(responseCode = "200", description = "The video game has been found.", content = @Content(schema = @Schema(implementation = VideoGame.class)))
-    @APIResponse(responseCode = "404", description = "The video game is not found. The provided game ID is incorrect.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
+    @APIResponse(responseCode = "404", description = "The video game is not found. The provided game ID is incorrect.", ref = ApplicationConfig.RESPONSE_API_ERROR)
     public Response get(@PathParam(value = "id")
                         @Parameter(description = "id of the videogame", example = "098d7670-ac32-49e7-9752-93fb1d16d495")
                         @NotNull 
@@ -176,7 +177,7 @@ public class VideoGameResource
     @Path("/{id}")
     @Operation(summary = "Delete a videogame", description = "Delete the videogame for the given UUID.")
     @APIResponse(responseCode = "204", description = "The videogame has been deleted.")
-    @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
+    @APIResponse(responseCode = "404", description = "The videogame does not exist.", ref = ApplicationConfig.RESPONSE_API_ERROR)
     public Response delete(@PathParam("id") String id)
     {   	
     	log.info("Delete videogame {}", id);
@@ -190,7 +191,7 @@ public class VideoGameResource
     @Path("/{id}")
     @Operation(summary = "Update a videogame", description = "Fully update the videogame for the given UUID.")
     @APIResponse(responseCode = "200", description = "The videogame has been modified.")
-    @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
+    @APIResponse(responseCode = "404", description = "The videogame does not exist.", ref = ApplicationConfig.RESPONSE_API_ERROR)
     public VideoGame update(@PathParam("id") String id,  VideoGame source) 
     {   	
         log.info("update video-game {} : {}", id, source);
@@ -209,8 +210,8 @@ public class VideoGameResource
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{id}/name")
     @Operation(summary = "Update the name of a videogame", description = "Only update the name of the videogame for the given UUID.")
-    @APIResponse(responseCode = "204", description = "The videogame has been modified.", headers = @Header(name = "Location", description = "URI of the updated video game."))
-    @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
+    @APIResponse(responseCode = "204", description = "The videogame has been modified.", headers = @Header(name = "Location", description = "URI of the updated video game.", schema = @Schema(type = SchemaType.STRING)))
+    @APIResponse(responseCode = "404", description = "The videogame does not exist.", ref = ApplicationConfig.RESPONSE_API_ERROR)
     public Response updateName(@PathParam("id") String id, String name, @Context UriInfo uriInfo) 
     {   	
         log.info("update video-game {} : name={}", id, name);
@@ -229,8 +230,8 @@ public class VideoGameResource
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{id}/genre")
     @Operation(summary = "Update the genre of a videogame", description = "Only update the genre of the videogame for the given UUID.")
-    @APIResponse(responseCode = "204", description = "The videogame has been modified.", headers = @Header(name = "Location", description = "URI of the updated video game."))
-    @APIResponse(responseCode = "404", description = "The videogame does not exist.", content= { @Content(mediaType=SpecificMediaType.APPLICATION_PROBLEM_JSON) })
+    @APIResponse(responseCode = "204", description = "The videogame has been modified.", headers = @Header(name = "Location", description = "URI of the updated video game.", schema = @Schema(type = SchemaType.STRING)))
+    @APIResponse(responseCode = "404", description = "The videogame does not exist.", ref = ApplicationConfig.RESPONSE_API_ERROR)
     public Response updateGenre(@PathParam("id") String id, Genre genre, @Context UriInfo uriInfo) 
     {   	
         log.info("update video-game {} : genre={}", id, genre);

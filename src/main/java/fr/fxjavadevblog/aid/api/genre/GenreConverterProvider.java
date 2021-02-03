@@ -28,7 +28,7 @@ public class GenreConverterProvider implements ParamConverterProvider
 
     static
     {
-        log.debug("Registering converter provider for Genre (JAX-RS + ConvertUtils");
+        log.debug("Registering converter provider for Genre (JAX-RS + ConvertUtils)");
         ConvertUtils.register(converter, Genre.class);
     }
 
