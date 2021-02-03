@@ -39,15 +39,16 @@ $ java -jar ./target/api-impl-demo-[version]-SNAPSHOT-runner.jar
 
 then browse to: 
 
-- OpenApi definition : `http://localhost:8080/openapi`
-- OpenApi UI : `http://localhost:8080/openapi-ui/`
-- API : `http://localhost:8080/api/v1/video-games?page=0&size=100`
-- Health: `http://localhost:8080/health`
-- Metrics: `http://localhost:8080/metrics`
+- OpenApi definition : `http://localhost:8080/v1/openapi`
+- OpenApi UI : `http://localhost:8080/openapi-ui`
+- API : `http://localhost:8080/v1/api/video-games?page=0&size=100`
+- Health: `http://localhost:8080/v1/health`
+- Health UI: `http://localhost:8080/v1/health-ui`
+- Metrics: `http://localhost:8080/v1/metrics`
 
 ## Examples
 
-### HEAD `/api/v1/video-games`
+### HEAD `/v1/api/video-games`
 
 ```text
 HTTP/1.1 204 No Content
@@ -56,7 +57,7 @@ connection: keep-alive
 ```
 
 
-### GET `/api/v1/video-games?page=5&size=10`
+### GET `/v1/api/video-games?page=5&size=10`
 
 
 ```json
@@ -131,7 +132,7 @@ connection: keep-alive
 }
 ```
 
-### GET `/api/v1/video-games/098d7670-ac32-49e7-9752-93fb1d16d495`
+### GET `/v1/api/video-games/098d7670-ac32-49e7-9752-93fb1d16d495`
 
 ```json
 {
@@ -142,7 +143,7 @@ connection: keep-alive
 }
 ```
 
-### GET `/api/v1/video-games?page=5&size=10&name=like:xeno`
+### GET `/v1/api/video-games?page=5&size=10&name=like:xeno`
 
 ```json
 {
