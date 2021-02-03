@@ -1,5 +1,5 @@
 ---
-openapi: 3.0.3
+openapi: 3.0.0
 info:
   title: <overriden by annotation. see Application class>
   description: "Give access (CRUD) to every video games of the famous 90's computer : ATARI ST."
