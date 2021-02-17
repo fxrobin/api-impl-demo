@@ -22,6 +22,7 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import fr.fxjavadevblog.aid.api.exceptions.ResourceNotFoundException;
 import fr.fxjavadevblog.aid.api.videogame.VideoGame;
 import fr.fxjavadevblog.aid.api.videogame.VideoGameRepository;
 import fr.fxjavadevblog.aid.metadata.ApplicationConfig;
@@ -30,6 +31,7 @@ import fr.fxjavadevblog.aid.utils.jaxrs.pagination.Pagination;
 import fr.fxjavadevblog.aid.utils.jaxrs.pagination.QueryParameterUtils;
 import fr.fxjavadevblog.aid.utils.pagination.PagedResponse;
 import fr.fxjavadevblog.aid.utils.validation.SortableOn;
+import fr.fxjavadevblog.preconditions.Checker;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +59,19 @@ public class GenreResource
 	public Genre[] getAllGenres() {
 		return Genre.values();
 	}
+	
+	@GET
+	@Path("/{genre}")
+	@Operation(summary = "Return a video game Genre")
+	@APIResponse(responseCode = "200", description = "OK")
+	@APIResponse(responseCode = "404", description = "The genre does not exist.", ref = ApplicationConfig.RESPONSE_API_ERROR)
+	public Response getGenre(@PathParam("genre") final Genre genre) 
+	{		
+		Checker.notNull("Genre", genre, ResourceNotFoundException::new);    
+    	return Response.ok(genre).build();
+	}
+	
+	
 
 	@GET
 	@Operation(summary = "Get games within a genre", description = "Get all video games of the given genre")
