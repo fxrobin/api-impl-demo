@@ -89,8 +89,8 @@ public class VideoGameResource
     }
 
     @GET
-    @Operation(summary = "Video game resources with paging, sorting and filtering.)", 
-               description = "Get all video games on Atari ST. Content negociation can produce application/json and application/yaml")
+    @Operation(summary = "Video game resources with paging, sorting and filtering.", 
+               description = "Get all video games on Atari ST. Content negotiation can produce application/json and application/yaml")
     @Timed(name = "videogames-find-all", absolute = true, description = "A measure of how long it takes to fetch all video games.", unit = MetricUnits.MILLISECONDS)
     @Parameter(name="name", description = "holds filtering expression : like, eq", schema = @Schema(type = SchemaType.STRING) )
     @Parameter(in = ParameterIn.QUERY, name="genre", description = "holds filtering expression : eq", schema = @Schema(type = SchemaType.STRING))
@@ -136,7 +136,7 @@ public class VideoGameResource
     
     @GET
     @Path("/{id}")
-    @Operation(summary = "Get information about a particular video game.", description = "Retrieve all data of a video game. *Content Negociation* can produce JSON or YAML")
+    @Operation(summary = "Get information about a particular video game.", description = "Retrieve all data of a video game. *Content Negotiation* can produce JSON or YAML")
     @APIResponse(responseCode = "200", description = "The video game has been found.", content = @Content(schema = @Schema(implementation = VideoGame.class)))
     @APIResponse(responseCode = "404", description = "The video game is not found. The provided game ID is incorrect.", ref = ApplicationConfig.RESPONSE_API_ERROR)
     public Response get(@PathParam(value = "id")
