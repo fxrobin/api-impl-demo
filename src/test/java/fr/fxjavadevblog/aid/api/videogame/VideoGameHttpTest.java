@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import fr.fxjavadevblog.aid.global.TestApplicationConfig;
 import fr.fxjavadevblog.aid.metadata.ApplicationConfig;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.specification.RequestSpecification;
 
