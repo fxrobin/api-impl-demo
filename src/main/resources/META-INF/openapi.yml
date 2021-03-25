@@ -20,6 +20,9 @@ tags:
 
 paths:
   /health:
+    servers:
+    - url: /api-impl-demo/v1
+      description: Override base path for all operations with the /health path
     get:
       tags:
       - Health and Metrics
@@ -38,6 +41,9 @@ paths:
           description: There is no monitored API at this address.
             
   /metrics:
+    servers:
+    - url: /api-impl-demo/v1
+      description: Override base path for all operations with the /metrics path
     get:
       tags:
       - Health and Metrics

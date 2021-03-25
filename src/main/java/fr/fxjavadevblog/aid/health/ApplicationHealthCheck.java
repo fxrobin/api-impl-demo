@@ -30,9 +30,10 @@ public class ApplicationHealthCheck
        return () -> HealthCheckResponse.named(ApplicationConfig.APP_NAME + " health check")
     		   .up()
     		   .withData("app_name", ApplicationConfig.APP_NAME)
+    		   .withData("app_tile", ApplicationConfig.APP_TITLE)
     		   .withData("app_version", ApplicationConfig.APP_VERSION)
     		   .withData("api_version", ApplicationConfig.API_VERSION)
-    		   .withData("api_base_uri", ApplicationConfig.API_VERSIONED_BASE_PATH)
+    		   .withData("api_full_path", ApplicationConfig.API_FULL_PATH)
     		   .withData("started_at", ISO_8601_EXTENDED_DATETIME_FORMAT.format(chrono.getStartTime()))
     		   .withData("uptime", chrono.toString())
     		   .build();

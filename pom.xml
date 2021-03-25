@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.fxjavadevblog</groupId>
 	<artifactId>api-impl-demo</artifactId>
-	<version>0.0.7-SNAPSHOT</version>
+	<version>0.0.8-SNAPSHOT</version>
 	<name>API Implementation Demo</name>
 
 	<properties>
@@ -15,7 +15,7 @@
 
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-		<quarkus.platform.version>1.12.1.Final</quarkus.platform.version>
+		<quarkus.platform.version>1.12.2.Final</quarkus.platform.version>
 		<quarkus-plugin.version>${quarkus.platform.version}</quarkus-plugin.version>
 		<lombok.version>1.18.14</lombok.version>
 		<commons-lang.version>3.11</commons-lang.version>

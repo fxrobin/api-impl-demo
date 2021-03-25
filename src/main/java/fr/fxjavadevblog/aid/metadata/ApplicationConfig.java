@@ -19,8 +19,8 @@ import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 // this definition is merged with resources/META-INF/openapi.yml
 
 @OpenAPIDefinition (
-	info = @Info(title = ApplicationConfig.APP_NAME, version = ApplicationConfig.APP_VERSION),
-	servers = @Server(url = ApplicationConfig.APPLICATION_ROOT_VERSIONED ),
+	info = @Info(title = ApplicationConfig.APP_TITLE, version = ApplicationConfig.APP_VERSION),
+	servers = @Server(url = ApplicationConfig.API_FULL_PATH ),
 	components = @Components(
 					responses =	{
 						@APIResponse(name = ApplicationConfig.RESPONSE_API_ERROR, 						
@@ -38,22 +38,23 @@ import fr.fxjavadevblog.aid.utils.jaxrs.media.SpecificMediaType;
 )
 
 
-@ApplicationPath(ApplicationConfig.API_VERSIONED_BASE_PATH)
+@ApplicationPath(ApplicationConfig.API_VERSIONED_PATH)
 
 public class ApplicationConfig extends Application {
 	
 	// these constants are used by OpenApi definition and by the response of /health
 	
-	public static final String PATH_DELIM = "/";
 	
-	public static final String APP_NAME = "API for Atari ST Floppy Catalog";
-	public static final String APP_VERSION = "0.0.7";
-	public static final String API_BASE_PATH = "api";
+	public static final String APP_NAME = "api-impl-demo";
+	public static final String APP_TITLE = "API for Atari ST Floppy Catalog";
+	public static final String APP_VERSION = "0.0.8";
+	
+	public static final String ROOT_PATH = "/" + APP_NAME;
+	
 	public static final String API_VERSION = "v1";
-	public static final String API_VERSIONED_BASE_PATH = PATH_DELIM + API_VERSION + PATH_DELIM + API_BASE_PATH ;
-	
-	public static final String APPLICATION_ROOT_VERSIONED = PATH_DELIM + API_VERSION;
-	
+	public static final String API_ENDPOINT_BASEPATH = "api";	
+	public static final String API_VERSIONED_PATH = "/" + API_VERSION + "/" + API_ENDPOINT_BASEPATH;
+	public static final String API_FULL_PATH = ROOT_PATH + API_VERSIONED_PATH;
 	
 	
 	// aliases for OpenApi references via "ref=" annotation attribute.

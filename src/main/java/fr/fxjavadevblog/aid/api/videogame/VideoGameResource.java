@@ -62,12 +62,14 @@ import lombok.extern.slf4j.Slf4j;
 
 // JAX-RS + OpenAPI annotations 
 
-@Path("/video-games")
+
+@Path(VideoGameResource.PATH)
 @Tag(name="Videogames", description = "Videogame collection")
 @Produces({MediaType.APPLICATION_JSON, SpecificMediaType.APPLICATION_YAML})
 @Slf4j
 public class VideoGameResource
 {    
+	public static final String PATH = "/video-games";
     private static final String VIDEOGAME_ARG = "videogame";
 	@Inject
     VideoGameRepository videoGameRepository;

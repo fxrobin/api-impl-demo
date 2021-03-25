@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import org.junit.jupiter.api.Test;
 
 import fr.fxjavadevblog.aid.global.TestApplicationConfig;
+import fr.fxjavadevblog.aid.metadata.ApplicationConfig;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.specification.RequestSpecification;
@@ -20,14 +21,16 @@ import io.restassured.specification.RequestSpecification;
  */
 
 @QuarkusTest
-@TestHTTPEndpoint(VideoGameResource.class) 
+
+
 class VideoGameHttpTest 
 {
 	
 	private RequestSpecification prepareTest() 
 	{
 		return given()
-        	.baseUri(TestApplicationConfig.REST_ASSURED_FULL_BASE_URI)
+			.baseUri(TestApplicationConfig.REST_ASSURED_HTTP_BASE)
+	        .basePath(ApplicationConfig.API_FULL_PATH + VideoGameResource.PATH)
         	.log().uri()
         	.when();
 	}
