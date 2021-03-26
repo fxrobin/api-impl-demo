@@ -30,7 +30,7 @@ public class ApplicationHealthCheck
        return () -> HealthCheckResponse.named(ApplicationConfig.APP_NAME + " health check")
     		   .up()
     		   .withData("app_name", ApplicationConfig.APP_NAME)
-    		   .withData("app_tile", ApplicationConfig.APP_TITLE)
+    		   .withData("app_title", ApplicationConfig.APP_TITLE)
     		   .withData("app_version", ApplicationConfig.APP_VERSION)
     		   .withData("api_version", ApplicationConfig.API_VERSION)
     		   .withData("api_full_path", ApplicationConfig.API_FULL_PATH)
