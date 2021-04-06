@@ -108,5 +108,5 @@ paths:
            content:
             text/plain:
               schema:          
-                type: String
+                type: string
               
