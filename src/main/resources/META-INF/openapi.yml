@@ -17,7 +17,60 @@ info:
 tags:
 - name: Health and Metrics
   description: get metadada from the underlaying application.
-
+  
+components:
+  schemas:
+    Health:
+      type: object
+      properties:
+        status:
+           type: string
+           enum: [UP, DOWN]
+        checks:
+          type: array
+          items:
+            type: object            
+            properties:
+              name:
+                type: string
+              status:
+                type: string
+                enum: [UP, DOWN]
+              data:
+                type: object
+                properties:
+                  app_name:
+                    type: string
+                    decription: the application tiny name
+                  app_title:
+                    type: string  
+                    description: the application full title
+                  app_version:
+                    type: string
+                    description: the application version
+                    pattern: '^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$'  
+                  api_version:
+                    type: string
+                    description: the API version
+                    example : 'v1'
+                  api_full_path:
+                    type: string
+                    description: full path to the API
+                    example: '/api-impl-demo/v1/api'
+                  started_at:
+                    type: string                    
+                    format: date-time
+                    description: date-time when the application was started.
+                  uptime:
+                    type: string
+                    description: how long the application is running. Time format is hours:minutes:seconds.millisec.
+                    example: '00:00:28.174'                          
+            required:
+            - name
+            - status
+      required:
+        - status
+        - checks
 paths:
   /health:
     servers:
@@ -34,7 +87,7 @@ paths:
           content:
             application/json:
               schema:
-                type: Object        
+                $ref: '#/components/schemas/Health'    
         "500":
           description: The API is not ready.
         "404":
