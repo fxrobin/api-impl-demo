@@ -63,7 +63,7 @@ public class GenreResource
 	@GET
 	@Path("/{genre}")
 	@Operation(summary = "Return a video game Genre")
-	@APIResponse(responseCode = "200", description = "OK")
+	@APIResponse(responseCode = "200", description = "OK", content= {@Content( schema=@Schema(implementation = Genre.class))})
 	@APIResponse(responseCode = "404", description = "The genre does not exist.", ref = ApplicationConfig.RESPONSE_API_ERROR)
 	public Response getGenre(@PathParam("genre") final Genre genre) 
 	{		
