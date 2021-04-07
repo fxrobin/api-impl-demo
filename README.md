@@ -39,23 +39,23 @@ $ java -jar ./target/api-impl-demo-[version]-SNAPSHOT-runner.jar
 
 then browse to: 
 
-- Start page : `http://localhost:8080`
-- OpenApi UI : `http://localhost:8080/openapi-ui`
-- Health UI: `http://localhost:8080/health-ui`
+- Start page : `http://localhost:8080/api-impl-demo`
+- OpenApi UI : `http://localhost:8080/api-impl-demo/openapi-ui`
+- Health UI: `http://localhost:8080/api-impl-demo/health-ui`
 
 Tech links:
 
-- OpenApi definition : `http://localhost:8080/v1/openapi`
-- Health: `http://localhost:8080/v1/health`
-- Metrics: `http://localhost:8080/v1/metrics`
+- OpenApi definition : `http://localhost:8080/api-impl-demo/v1/openapi`
+- Health: `http://localhost:8080/api-impl-demo/v1/health`
+- Metrics: `http://localhost:8080/api-impl-demo/v1/metrics`
 
 Basic request:
 
-- API : `http://localhost:8080/v1/api/video-games?page=0&size=100`
+- API : `http://localhost:8080/api-impl-demo/v1/api/video-games?page=0&size=100`
 
 ## Examples
 
-### HEAD `/v1/api/video-games`
+### HEAD `/api-impl-demo/v1/api/video-games`
 
 ```text
 HTTP/1.1 204 No Content
@@ -64,7 +64,7 @@ connection: keep-alive
 ```
 
 
-### GET `/v1/api/video-games?page=5&size=10`
+### GET `/api-impl-demo/v1/api/video-games?page=5&size=10`
 
 
 ```json
@@ -139,7 +139,7 @@ connection: keep-alive
 }
 ```
 
-### GET `/v1/api/video-games/098d7670-ac32-49e7-9752-93fb1d16d495`
+### GET `/api-impl-demo/v1/api/video-games/098d7670-ac32-49e7-9752-93fb1d16d495`
 
 ```json
 {
@@ -150,7 +150,7 @@ connection: keep-alive
 }
 ```
 
-### GET `/v1/api/video-games?page=5&size=10&name=like:xeno`
+### GET `/api-impl-demo/v1/api/video-games?page=5&size=10&name=like:xeno`
 
 ```json
 {
