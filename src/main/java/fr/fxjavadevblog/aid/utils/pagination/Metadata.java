@@ -9,7 +9,7 @@ import lombok.Getter;
 public class Metadata {
 	
 	@Getter
-	@Schema(description = "current diplayed page, starting at 0.")
+	@Schema(description = "current page, starting at 0.")
 	private int currentPage;
 	
 	@Getter
