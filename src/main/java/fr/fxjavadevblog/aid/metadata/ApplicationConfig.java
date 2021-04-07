@@ -47,7 +47,7 @@ public class ApplicationConfig extends Application {
 	
 	public static final String APP_NAME = "api-impl-demo";
 	public static final String APP_TITLE = "API for Atari ST Floppy Catalog";
-	public static final String APP_VERSION = "0.0.9";
+	public static final String APP_VERSION = "0.0.10";
 	
 	public static final String ROOT_PATH = "/" + APP_NAME;
 	
