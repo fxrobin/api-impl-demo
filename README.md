@@ -10,7 +10,7 @@ A simple REST API following REST best practices.
 
 This project uses Quarkus.
 
-Note: this project can be build in native mode with graal-vm, but it cannot be executed due to embedded H2.
+Note: this project can be built in native mode with graal-vm, but it cannot be executed due to embedded H2.
 H2 cannot be executed in native mode up to now. (not supported feature by Quarkus).
 
 ## How to run
