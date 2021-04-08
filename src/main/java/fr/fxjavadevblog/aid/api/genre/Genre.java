@@ -25,7 +25,7 @@ public enum Genre {
 	@JsonProperty(value = "pinball")
 	PINBALL,
 
-	@JsonProperty(value = "platform")
+	@JsonProperty(value = "plateform")
 	PLATFORM,
 
 	@JsonProperty(value = "reflexion")
